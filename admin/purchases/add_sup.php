@@ -65,9 +65,9 @@ if(isset($_GET['action'])){
 			}		
 			else{
 				$sql_insert="INSERT INTO tbl_supplier(sup_id,sup_fname,sup_lname,sup_comp,sup_gen,sup_add,sup_tel,sup_email,sup_stat) VALUES('$supid','$fname','$lname','$company','$gen','$add','$tel','$email','$stat');";
-				mysqli_query($conn,$sql_insert) or die("Mysql error".mysqli_error());
+				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				header('Location:'.$base_url.'purchases/add_sup.php?action=add&id='.$supid.'&s=1');
-				mysqli_close($con);
+				mysqli_close($GLOBALS['conn']);
 				}	//else close
 			
 			}//post close
@@ -77,7 +77,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$cusid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_supplier WHERE sup_id='$supid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$fname=$row['sup_fname'];
 			$lname=$row['sup_lname'];
@@ -125,7 +125,7 @@ if(isset($_GET['action'])){
 				else{
 					$sql_update="UPDATE tbl_supplier SET  
 			sup_fname='$fname',sup_lname='$lname',sup_comp='$company',sup_gen='$gen',sup_add='$add',sup_tel='$tel',sup_email='$email',sup_stat='$stat' WHERE sup_id='$supid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'purchases/view_sup.php?&id='.$supid.'&s=1');
 					}	// else close
 		

@@ -21,7 +21,7 @@ if(isset($_GET['action'])){
 	if($page_action=='delete' && isset($_GET['id'])){
 		$eid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_emp WHERE emp_id='$eid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'employee/view_emp.php?id='.$eid.'&ds=1');
 		}
 	}
@@ -69,7 +69,7 @@ if(isset($_GET['action'])){
                         </thead>
                         <tbody>
                         <?php $sql_select="SELECT * FROM tbl_emp INNER JOIN tbl_job ON tbl_emp.emp_job_id=tbl_job.job_id;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

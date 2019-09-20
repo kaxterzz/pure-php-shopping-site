@@ -30,7 +30,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$prid=$_GET['id'];
 			$sql_all="SELECT B.batch_id,P.prd_id,P.prd_name,B.batch_qnty,B.batch_pay_amount,B.batch_credit_amount,B.batch_settle_date,B.batch_on_credit FROM tbl_products P,tbl_batch B WHERE B.prd_id=P.prd_id AND B.batch_on_credit=1;";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$bid=$row['batch_id'];
 			$pid=$row['prd_id'];
@@ -44,7 +44,7 @@ if(isset($_GET['action'])){
 				$stat=$_POST['optstat'];
 				$newcredit=$_POST['txtnewcredit'];
 				$sql_update="UPDATE tbl_batch SET batch_credit_amount='$newcredit',batch_on_credit='$stat' WHERE batch_id='$bid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'purchases/credit_pur.php?id='.$bid.'&s=1');	
 			}
 		}//isset id
@@ -93,7 +93,7 @@ if(isset($_GET['action'])){
                         </thead>
                         <tbody>
                         <?php $sql_select="SELECT B.batch_id,P.prd_id,P.prd_name,B.batch_qnty,B.batch_pay_amount,B.batch_credit_amount,B.batch_settle_date,B.batch_on_credit FROM tbl_products P,tbl_batch B WHERE B.prd_id=P.prd_id AND B.batch_on_credit=1;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

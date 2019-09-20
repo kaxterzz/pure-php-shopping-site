@@ -53,7 +53,7 @@ $frm_err_msg='';
                  	 		<select id="cmbid" name="cmbid" style="height:25px;border-radius:4px">
                             	<option value="">--Select ID--</option>
 										 <?php $sql_opt="SELECT inv_id FROM tbl_invoice;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $invid=$row['inv_id'];
 											   $select='';
@@ -117,7 +117,7 @@ $frm_err_msg='';
                         </thead>
                         <tbody id="viewRec">
                         <?php $sql_select="SELECT I.inv_id,C.cus_fname,C.cus_lname,I.inv_date,I.inv_gtot,I.inv_disc,I.inv_ntot,I.inv_emp_id FROM tbl_invoice I JOIN tbl_customer C ON I.inv_cus_id=C.cus_id;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

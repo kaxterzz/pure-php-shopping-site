@@ -24,7 +24,7 @@ $frm_err_msg='';
 		if(isset($_SESSION["employee"]["eid"])){
 			$eid=$_SESSION["employee"]["eid"];
 			$sql_all="SELECT * FROM tbl_emp WHERE emp_id='$eid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$fname=$row['emp_fname'];
 			$lname=$row['emp_lname'];
@@ -84,7 +84,7 @@ $frm_err_msg='';
 				else{
 					$sql_update="UPDATE tbl_emp SET  
 				emp_fname='$fname',emp_lname='$lname',emp_nic='$nic',emp_gen='$gen',emp_add='$add',emp_tel='$tel',		       			emp_email='$email' WHERE emp_id='$eid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'employee/my_account.php?&id='.$eid.'&s=1');
 					}	// else close
 		
@@ -157,7 +157,7 @@ $frm_err_msg='';
                                 <td><select class="form-control" id="cmbjob" name="cmbjob" disabled>
                                       <option value="">--Select--</option>
 										 <?php $sql_opt="SELECT * FROM tbl_job;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $jobid=$row['job_id'];
 											   $jobtitle=$row['job_title'];

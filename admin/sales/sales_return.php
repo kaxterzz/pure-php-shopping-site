@@ -34,7 +34,7 @@ if(isset($_GET['action'])){
 			$cat=$_POST['txtcat'];
 			$prd=$_POST['txtprd'];
 			$sql_prdid="SELECT prd_id FROM tbl_products WHERE prd_name='$prd';";
-			$res_prdid=mysqli_query($conn,$sql_prdid) or die("MYSQL Error:".mysqli_error());
+			$res_prdid=mysqli_query($GLOBALS['conn'],$sql_prdid) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row_prdid=mysqli_fetch_assoc($res_prdid);
 			$prdid=$row_prdid['prd_id'];
 			$qnty=$_POST['txtqnty'];
@@ -57,10 +57,10 @@ if(isset($_GET['action'])){
 			else{
 				if($qlitystat=='1'){ //if quality=waste record as a sales return + insert into waste table+sms+email
 					$sql1="INSERT INTO tbl_sales_return(sal_retrn_id,sal_retrn_date,inv_id,prd_id,sal_retrn_qnty,sal_retrn_prd_price,sal_retrn_qlity_stat) VALUES('$srid','$rdate','$invid','$prdid','$qnty','$price','$qlitystat');";
-					$res1=mysqli_query($conn,$sql1) or die("Mysql error".mysqli_error());
+					$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					if($res1>0){//insert to waste table
 						$sql2="UPDATE tbl_products SET prd_waste_qnty=prd_waste_qnty+'$qnty' WHERE prd_id='$prdid';";
-						$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+						$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 						sendNotify($invid,$prdid,$qnty,$rdate);
 						header('Location:'.$base_url.'sales/sales_return.php?action=add&id='.$srid.'&s=1');
 						mysqli_close($con);
@@ -69,10 +69,10 @@ if(isset($_GET['action'])){
 				}
 				elseif($qlitystat=='2'){// quality=re-sell record as a sales return + insert into products table+sms+email
 					$sql1="INSERT INTO tbl_sales_return(sal_retrn_id,sal_retrn_date,inv_id,prd_id,sal_retrn_qnty,sal_retrn_prd_price,sal_retrn_qlity_stat) VALUES('$srid','$rdate','$invid','$prdid','$qnty','$price','$qlitystat');";
-					$res1=mysqli_query($conn,$sql1) or die("Mysql error".mysqli_error());
+					$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					if($res1>0){//insert to waste table
 						$sql2="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty+'$qnty' WHERE prd_id='$prdid';";
-						$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+						$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 						sendNotify($invid,$prdid,$qnty,$rdate);
 						header('Location:'.$base_url.'sales/sales_return.php?action=add&id='.$srid.'&s=1');
 						mysqli_close($con);
@@ -80,14 +80,14 @@ if(isset($_GET['action'])){
 				}
 				elseif($qlitystat=='3'){ //quality=damaged record as a sales return + insert into purchase return table+sms+email
 					$sql1="INSERT INTO tbl_sales_return(sal_retrn_id,sal_retrn_date,inv_id,prd_id,sal_retrn_qnty,sal_retrn_prd_price,sal_retrn_qlity_stat) VALUES('$srid','$rdate','$invid','$prdid','$qnty','$price','$qlitystat');";
-					$res1=mysqli_query($conn,$sql1) or die("Mysql error".mysqli_error());
+					$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					if($res1>0){//insert to waste table
 						$sql="SELECT sup_id FROM tbl_batch WHERE prd_id='$prdid';";
-						$res=mysqli_query($conn,$sql) or die("Mysql error".mysqli_error());
+						$res=mysqli_query($GLOBALS['conn'],$sql) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 						$row=mysqli_fetch_assoc($res);
 						$sup=$row['sup_id'];
 						$sql2="INSERT INTO tbl_purchase_return(pur_retrn_id,prd_id,pur_retrn_qnty,sup_id,date_added,pur_retrn_stat) VALUES('$srid','$prdid','$qnty','$sup','$rdate',0);";
-						$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+						$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 						sendNotify($invid,$prdid,$qnty,$rdate);
 						header('Location:'.$base_url.'sales/sales_return.php?action=add&id='.$srid.'&s=1');
 						mysqli_close($con);
@@ -102,7 +102,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$srid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_sales_return S,tbl_products P,tbl_category C WHERE sal_retrn_id='$srid' AND S.prd_id=P.prd_id AND P.cat_id=C.cat_id;";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$rdate=date($row['sal_retrn_date']);
 			$invid=$row['inv_id'];
@@ -118,7 +118,7 @@ if(isset($_GET['action'])){
 				$acat=$_POST['txtcat'];
 				$aprd=$_POST['txtprd'];
 				$sql_prdid="SELECT prd_id FROM tbl_products WHERE prd_name='$prd';";
-				$res_prdid=mysqli_query($conn,$sql_prdid) or die("MYSQL Error:".mysqli_error());
+				$res_prdid=mysqli_query($GLOBALS['conn'],$sql_prdid) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				$row_prdid=mysqli_fetch_assoc($res_prdid);
 				$aprdid=$row_prdid['prd_id'];
 				$aqnty=$_POST['txtqnty'];
@@ -142,36 +142,36 @@ if(isset($_GET['action'])){
 						if($aqlitystat=='1'){ //if after quality=waste record as a sales return
 							if($qlitystat=='1'){ //if before quality=waste update sales return and update prd_waste_qnty
 								$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 								if($res>0){
 									$sql2="UPDATE tbl_products SET prd_waste_qnty=prd_waste_qnty-'$qnty'+'$aqnty' WHERE prd_id='$prdid';";
-									$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+									$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									header('Location:'.$base_url.'sales/sales_return.php?id='.$srid.'&s=1');
 									mysqli_close($con);
 								}
 							}
 							elseif($qlitystat=='2'){//if before quality=resell update sales return and update prd_waste_qnty and prd_tot_qnty
 								$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_waste_qnty=prd_waste_qnty-'$qnty' WHERE prd_id='$prdid';";
-										$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										if($res2>0){
 											$sql3="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty+'$aqnty' WHERE prd_id='$prdid';";	
-											mysqli_query($conn,$sql3) or die("Mysql error".mysqli_error());
+											mysqli_query($GLOBALS['conn'],$sql3) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 											header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');
 										}
 									}
 							}
 							elseif($qlitystat=='3'){//if before quality=pur_retrn update sales return and update prd_waste_qnty and insert pur_return record
 							$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_waste_qnty=prd_waste_qnty-'$qnty' WHERE prd_id='$prdid';";
-										$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										if($res2>0){
 											$sql3="INSERT INTO tbl_purchase_return(pur_retrn_id,prd_id,pur_retrn_qnty,date_added,pur_retrn_stat) VALUES('$asrid','$aprdid','$aqnty','$ardate',0);";
-											mysqli_query($conn,$sql3) or die("Mysql error".mysqli_error());
+											mysqli_query($GLOBALS['conn'],$sql3) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 											header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');	
 										}
 									}
@@ -180,35 +180,35 @@ if(isset($_GET['action'])){
 						elseif($aqlitystat=='2'){// quality=re-sell record as a sales return
 							if($qlitystat=='1'){//before quality=waste update prd_waste_qnty and prd_tot_qnty 
 								$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_waste_qnty=prd_waste_qnty-'$qnty' WHERE prd_id='$prdid';";
-										$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										if($res2>0){
 											$sql3="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty+'$aqnty' WHERE prd_id='$prdid';";	
-											mysqli_query($conn,$sql3) or die("Mysql error".mysqli_error());
+											mysqli_query($GLOBALS['conn'],$sql3) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 											header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');
 										}
 									}
 							}
 							elseif($qlitystat=='2'){//before quality=resell update prd_tot_qnty
 								$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty'+'$aqnty' WHERE prd_id='$prdid';";	
-										mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');
 									}
 							}
 							elseif($qlitystat=='3'){//before quality=damaged update prd_tot_qnty and delete purchretrn
 								$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='a$price',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty'+'$aqnty' WHERE prd_id='$prdid';";	
-										$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										if($res2>0){
 											$sql3="DELETE FROM tbl_purchase_return WHERE pur_retrn_id='$asrid';";
-											mysqli_query($conn,$sql3) or die("Mysql error".mysqli_error());
+											mysqli_query($GLOBALS['conn'],$sql3) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 											header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');	
 										}
 									}
@@ -217,36 +217,36 @@ if(isset($_GET['action'])){
 					elseif($aqlitystat=='3'){ //quality=damaged record as a sales return 
 						if($qlitystat=='1'){// before quality=waste update prd_waste_qnty and insert pur_retrn 
 							$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_waste_qnty=prd_waste_qnty-'$qnty' WHERE prd_id='$prdid';";	
-										$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										if($res2>0){
 											$sql3="INSERT INTO tbl_purchase_return(pur_retrn_id,prd_id,pur_retrn_qnty,date_added,pur_retrn_stat) VALUES('$asrid','$aprdid','$aqnty','$ardate',0);";
-											mysqli_query($conn,$sql3) or die("Mysql error".mysqli_error());
+											mysqli_query($GLOBALS['conn'],$sql3) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 											header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');	
 										}
 									}
 						}
 						elseif($qlitystat=='2'){// before quality=resell update prd_tot_qnty and insert pur_retrn
 							$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty' WHERE prd_id='$prdid';";	
-										$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										if($res2>0){
 											$sql3="INSERT INTO tbl_purchase_return(pur_retrn_id,prd_id,pur_retrn_qnty,date_added,pur_retrn_stat) VALUES('$asrid','$aprdid','$aqnty','$ardate',0);";
-											mysqli_query($conn,$sql3) or die("Mysql error".mysqli_error());
+											mysqli_query($GLOBALS['conn'],$sql3) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 											header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');	
 										}
 									}
 						}
 						elseif($qlitystat=='3'){//before quality=damaged update pur_retrn
 							$sql_update="UPDATE tbl_sales_return SET sal_retrn_date='$ardate',inv_id='$ainvid',prd_id='$aprdid',sal_retrn_qnty='$aqnty',sal_retrn_prd_price='$aprice',sal_retrn_qlity_stat='$aqlitystat' WHERE sal_retrn_id='$asrid';";
-								$res=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+								$res=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 									if($res>0){
 										$sql2="UPDATE tbl_purchase_return SET prd_id='$aprdid',pur_retrn_qnty='$aqnty',date_added='$ardate',pur_retrn_stat=0 WHERE pur_retrn_id='$asrid';";
-										mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+										mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 										header('Location:'.$base_url.'sales/sales_return.php?&id='.$srid.'&s=1');
 									}
 						}
@@ -262,7 +262,7 @@ elseif($page_action == ' '){
 elseif($page_action == 'delete' && isset($_GET['id'])){
 		$srid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_sales_return WHERE sal_retrn_id='$srid';";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'sales/sales_return.php?id='.$srid.'&ds=1');
 		}
 
@@ -315,7 +315,7 @@ elseif($page_action == 'delete' && isset($_GET['id'])){
                                 </thead>
                                 <tbody>
                                 <?php $sql_select="SELECT S.sal_retrn_id,S.sal_retrn_date,S.inv_id,P.prd_name,S.sal_retrn_qnty,S.sal_retrn_prd_price,S.sal_retrn_qlity_stat FROM tbl_sales_return S,tbl_products P WHERE S.prd_id=P.prd_id;";
-                                      $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+                                      $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
                                       while($row=mysqli_fetch_assoc($result)){
                                           
                                 ?>	<tr>

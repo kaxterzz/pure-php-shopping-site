@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include('lib/config.php'); // attach config.php
-require_once('lib/connection.php'); // attach db connection
 include('lib/function.php');
 $meta_title='Login.Binny Traders';
 include('inc-head.php');

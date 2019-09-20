@@ -110,7 +110,7 @@ if(isset($_GET['action'])){
 			}
 			else{
 				$sql_insert="INSERT INTO 		        tbl_emp(emp_id,emp_fname,emp_lname,emp_nic,emp_gen,emp_add,emp_tel,emp_email,emp_job_id,emp_uname,emp_pass,emp_stat)     VALUES('$eid','$fname','$lname','$nic','$gen','$add','$tel','$email','$job','$uname','$epass','$stat');";
-				mysqli_query($conn,$sql_insert) or die("Mysql error".mysqli_error());
+				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				$from ="binnytraders@gmail.com";
 				$header = "From : ".$from;
 				$header .= "MIME-Version: 1.0\n";
@@ -132,7 +132,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$eid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_emp WHERE emp_id='$eid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$fname=$row['emp_fname'];
 			$lname=$row['emp_lname'];
@@ -194,7 +194,7 @@ if(isset($_GET['action'])){
 				else{
 					$sql_update="UPDATE tbl_emp SET  
 				emp_fname='$fname',emp_lname='$lname',emp_nic='$nic',emp_gen='$gen',emp_add='$add',emp_tel='$tel',		       			emp_email='$email',emp_job_id='$job',emp_stat='$stat' WHERE emp_id='$eid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'employee/view_emp.php?&id='.$eid.'&s=1');
 					}	// else close
 		
@@ -281,7 +281,7 @@ else{
                                 <td><select class="form-control" id="cmbjob" name="cmbjob">
                                       <option value="">--Select--</option>
 										 <?php $sql_opt="SELECT * FROM tbl_job;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $jobid=$row['job_id'];
 											   $jobtitle=$row['job_title'];

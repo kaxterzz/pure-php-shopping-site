@@ -75,9 +75,9 @@ if(isset($_GET['action'])){
 				else
 					$credit_stat='0';
 				$sql="INSERT INTO tbl_batch(batch_id,prd_id,batch_date,batch_qnty,batch_prd_cost_price,batch_prd_sell_price,sup_id,batch_pay_amount,batch_on_credit,batch_credit_amount,batch_settle_date,batch_stat) VALUES('$batchid','$prd','$date','$qnty','$cprice','$sprice','$sup','$totamnt','$credit_stat','$credit','$settledate','$stat');";
-				$res1=mysqli_query($conn,$sql) or die("Mysql error".mysqli_error());
+				$res1=mysqli_query($GLOBALS['conn'],$sql) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				$sql2="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty+'$qnty',prd_price='$sprice' WHERE prd_id='$prd'";
-				$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+				$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				
 				if($res1>0 && $res2>0){
 					$from ="binnytraders@gmail.com";
@@ -106,11 +106,11 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$batchid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_batch WHERE batch_id='$batchid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$prd=$row['prd_id'];
 			$sql_droplists="SELECT cat_id FROM tbl_products WHERE prd_id='$prd'";
-			$result_drop=mysqli_query($conn,$sql_droplists) or die("MYSQL Error:".mysqli_error());
+			$result_drop=mysqli_query($GLOBALS['conn'],$sql_droplists) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row_drop=mysqli_fetch_assoc($result_drop);
 			$cat=$row_drop['cat_id'];
 			$date=$row['batch_date'];
@@ -158,9 +158,9 @@ if(isset($_GET['action'])){
 			else{
 					$sql_update="UPDATE tbl_batch SET  
 				prd_id='$prd',batch_date='$date',batch_qnty='$qnty',batch_prd_cost_price='$cprice',batch_prd_sell_price='$sprice',sup_id='$sup',batch_stat='$stat' WHERE batch_id='$batchid';";
-					$res1=mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					$res1=mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					$sql_prd_qnty="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty+'$qnty',prd_price='$sprice' WHERE prd_id='$prd'";
-					$res2=mysqli_query($conn,$sql_prd_qnty) or die("Mysql error".mysqli_error());
+					$res2=mysqli_query($GLOBALS['conn'],$sql_prd_qnty) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					if($res1>0 && $res2>0)
 					header('Location:'.$base_url.'inventory/view_batch.php?&id='.$batchid.'&s=1');
 					}	// else close
@@ -264,7 +264,7 @@ else{
             <td><select class="form-control" id="cmbsup" name="cmbsup">
                 <option value="">--Select Supplier--</option>
                 <?php $sql_opt="SELECT * FROM tbl_supplier  WHERE sup_stat=1;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $supid=$row['sup_id'];
 											   $supname=$row['sup_comp'];

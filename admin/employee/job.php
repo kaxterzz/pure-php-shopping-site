@@ -34,7 +34,7 @@ if(isset($_GET['action'])){
 			else{
 				
 				$sql_insert="INSERT INTO tbl_job(job_id,job_title,job_stat) VALUES('$jid','$job','$stat');";
-				mysqli_query($conn,$sql_insert) or die("Mysql error".mysqli_error());
+				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				header('Location:'.$base_url.'employee/job.php?action=add&id='.$jid.'&s=1');
 				mysqli_close($con);
 				}	//else close
@@ -46,7 +46,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$jid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_job WHERE job_id='$jid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$job=$row['job_title'];
 			$stat=$row['job_stat'];
@@ -60,7 +60,7 @@ if(isset($_GET['action'])){
 					}
 				else{
 					$sql_update="UPDATE tbl_job SET job_title='$job',job_stat='$stat' WHERE job_id='$jid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'employee/job.php?&id='.$eid.'&s=1');
 					}	// else close
 		
@@ -73,7 +73,7 @@ elseif($page_action == ''){
 elseif($page_action == 'delete' && isset($_GET['id'])){
 		$jid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_job WHERE job_id='$jid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'employee/job.php?id='.$jid.'&ds=1');
 		}
 
@@ -120,7 +120,7 @@ elseif($page_action == 'delete' && isset($_GET['id'])){
                                 </thead>
                                 <tbody>
                                 <?php $sql_select="SELECT * FROM tbl_job;";
-                                      $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+                                      $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
                                       while($row=mysqli_fetch_assoc($result)){
                                           
                                 ?>	<tr>

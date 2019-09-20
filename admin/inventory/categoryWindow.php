@@ -25,7 +25,7 @@ $frm_err_msg='';
 		if(isset($_GET['id'])){
 			$cid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_category WHERE cat_id='$cid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$cat=$row['cat_name'];
 			$stat=$row['cat_stat'];
@@ -38,7 +38,7 @@ $frm_err_msg='';
 	elseif($page_action == 'delete' && isset($_GET['id'])){
 		$cid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_category WHERE cat_id='$cid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'inventory/categoryWindow.php?&ds=1');
 		}
 
@@ -104,7 +104,7 @@ $frm_err_msg='';
                             </thead>
                             <tbody id="info-body">
                             <?php $sql_all2="SELECT * FROM tbl_cat_feature WHERE cat_id='$cid';";
-								  $result2=mysqli_query($conn,$sql_all2) or die("MYSQL Error:".mysqli_error());
+								  $result2=mysqli_query($GLOBALS['conn'],$sql_all2) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								  while($row2=mysqli_fetch_assoc($result2)){?>
 									<tr>
                                     
@@ -158,7 +158,7 @@ $frm_err_msg='';
                                 </thead>
                                 <tbody>
                                 <?php $sql_select="SELECT * FROM tbl_category;";
-                                      $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+                                      $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
                                       while($row=mysqli_fetch_assoc($result)){
                                 ?>	<tr>
 

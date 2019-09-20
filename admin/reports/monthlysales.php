@@ -92,7 +92,7 @@ $newmonth=''; //month to display on title
                 <tbody id="monthly_sales_details">
                 <?php 
 					$sql="SELECT DATE(inv_date),inv_ntot,SUM(inv_ntot) FROM tbl_invoice WHERE MONTH(inv_date)='$month' AND YEAR(inv_date)='$year' GROUP BY inv_date;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$i=1;
 					$ntot=0;

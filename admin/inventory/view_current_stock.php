@@ -47,7 +47,7 @@ $frm_err_msg='';
                  	 		<select id="cmbpid" name="cmbpid" style="height:25px;border-radius:4px">
                             	<option value="">--Select--</option>
 										 <?php $sql_opt="SELECT prd_id FROM tbl_products WHERE prd_stat='1';";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $pid=$row['prd_id'];
 											   $select='';
@@ -74,7 +74,7 @@ $frm_err_msg='';
                  	 		<select id="cmbcat" name="cmbcat" style="height:25px;border-radius:4px">
                             	<option value="">--Select--</option>
 										 <?php $sql_opt="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat='1';";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $cid=$row['cat_id'];
 											   $cat=$row['cat_name'];
@@ -94,7 +94,7 @@ $frm_err_msg='';
                  	 		<select id="cmbbrand" name="cmbbrand" style="height:25px;border-radius:4px">
                             	<option value="">--Select--</option>
 										 <?php $sql_opt="SELECT brand_id,brand_name FROM tbl_brand WHERE brand_stat='1';";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $brid=$row['brand_id'];
 											   $brand=$row['brand_name'];
@@ -142,7 +142,7 @@ $frm_err_msg='';
                         <tbody id="viewRec">
                         <?php 
 							$sql_select="SELECT P.prd_id,P.prd_name,C.cat_name,BR.brand_name,P.prd_img_path,P.prd_tot_qnty,B.batch_prd_cost_price,P.prd_price,S.sup_comp FROM tbl_batch B,tbl_products P,tbl_supplier S,tbl_category C,tbl_brand BR WHERE B.prd_id=P.prd_id AND B.sup_id=S.sup_id AND P.cat_id=C.cat_id AND P.brand_id=BR.brand_id AND P.prd_stat=1 GROUP BY P.prd_id;";
-		 					$result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+		 					$result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							while($row=mysqli_fetch_assoc($result)){ 
                             ?>		  
                         <tr>

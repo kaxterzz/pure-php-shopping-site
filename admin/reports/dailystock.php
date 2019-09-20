@@ -48,7 +48,7 @@ $date=$_POST['dailystock'];
                 <tbody id="daily_stock_details">
                 <?php 
 					$sql="SELECT prd_id,prd_name,prd_tot_qnty FROM tbl_products WHERE prd_stat=1 GROUP BY prd_id;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					if($nor>0){	
 						while($row=mysqli_fetch_assoc($res)){

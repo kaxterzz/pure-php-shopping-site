@@ -26,7 +26,7 @@ $featureval='';
 if(isset($_GET['id'])){
 	$pid=$_GET['id'];
 	$sql_all="SELECT * FROM tbl_products WHERE prd_id='$pid';";
-	$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+	$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 	$row=mysqli_fetch_assoc($result);
 	$pname=$row['prd_name'];
 	$cat=$row['cat_id'];
@@ -160,7 +160,7 @@ if(isset($_GET['id'])){
                             </thead>
                             <tbody id="feature-tbl">
                             <?php $sql_all2="SELECT * FROM tbl_prd_info WHERE prd_id='$pid';";
-								  $result2=mysqli_query($conn,$sql_all2) or die("MYSQL Error:".mysqli_error());
+								  $result2=mysqli_query($GLOBALS['conn'],$sql_all2) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								  while($row2=mysqli_fetch_assoc($result2)){?>
 									<tr>
                                     <td><?php echo $row2['pi_id']; ?></td>

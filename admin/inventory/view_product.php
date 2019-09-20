@@ -20,7 +20,7 @@ if(isset($_GET['action'])){
 	if($page_action=='delete' && isset($_GET['id'])){
 		$pid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_products WHERE prd_id='$pid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'inventory/view_product.php?id='.$pid.'&ds=1');
 		}
 	}
@@ -63,7 +63,7 @@ if(isset($_GET['action'])){
                  	 		<select id="cmbpid" name="cmbpid" style="height:25px;border-radius:4px">
                             	<option value="">--Select--</option>
 										 <?php $sql_opt="SELECT prd_id FROM tbl_products WHERE prd_stat='1';";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $pid=$row['prd_id'];
 											   $select='';
@@ -90,7 +90,7 @@ if(isset($_GET['action'])){
                  	 		<select id="cmbcat" name="cmbcat" style="height:25px;border-radius:4px">
                             	<option value="">--Select--</option>
 										 <?php $sql_opt="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat='1';";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $cid=$row['cat_id'];
 											   $cat=$row['cat_name'];
@@ -110,7 +110,7 @@ if(isset($_GET['action'])){
                  	 		<select id="cmbbrand" name="cmbbrand" style="height:25px;border-radius:4px">
                             	<option value="">--Select--</option>
 										 <?php $sql_opt="SELECT brand_id,brand_name FROM tbl_brand WHERE brand_stat='1';";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $brid=$row['brand_id'];
 											   $brand=$row['brand_name'];
@@ -155,7 +155,7 @@ if(isset($_GET['action'])){
                         </thead>
                         <tbody id="viewRec">
                         <?php $sql_select="SELECT P.prd_id,P.prd_name,P.cat_id,C.cat_name,B.brand_name,P.prd_img_path,P.prd_reorder_lvl,P.prd_stat FROM tbl_category C JOIN tbl_products P ON C.cat_id=P.cat_id JOIN tbl_brand B ON P.brand_id=B.brand_id WHERE P.prd_stat=1;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

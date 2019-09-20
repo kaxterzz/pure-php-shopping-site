@@ -19,7 +19,7 @@ if(isset($_GET['action'])){
 	if($page_action=='delete' && isset($_GET['id'])){
 		$cusid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_customer WHERE cus_id='$cusid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'sales/view_cus.php?id='.$cusid.'&ds=1');
 		}
 	}
@@ -61,7 +61,7 @@ if(isset($_GET['action'])){
                  	 		<select id="cmbid" name="cmbid" style="height:25px;border-radius:4px">
                             	<option value="">--Select ID--</option>
 										 <?php $sql_opt="SELECT cus_id FROM tbl_customer;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $cid=$row['cus_id'];
 											   $select='';
@@ -125,7 +125,7 @@ if(isset($_GET['action'])){
                         </thead>
                         <tbody id="viewRec">
                         <?php $sql_select="SELECT * FROM tbl_customer;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

@@ -42,7 +42,7 @@ $tot='';
                         </thead>
                         <tbody><!-- edit -->
                         <?php $sql_select="SELECT I.prd_id,P.prd_name,I.prd_u_price,inv_prd_qnty,inv_prd_tot FROM tbl_inv_info I,tbl_products P WHERE I.prd_id=P.prd_id AND inv_id='$invid';";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

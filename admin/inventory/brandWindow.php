@@ -25,7 +25,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$bid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_brand WHERE brand_id='$bid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$brand=$row['brand_name'];
 			$stat=$row['brand_stat'];
@@ -39,7 +39,7 @@ if(isset($_GET['action'])){
 					}
 				else{
 					$sql_update="UPDATE tbl_brand SET brand_name='$brand',brand_stat='$stat' WHERE brand_id='$bid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'inventory/brandWindow.php?&id='.$bid.'&s=1');
 					}	// else close
 		
@@ -52,7 +52,7 @@ elseif($page_action == 'view'){
 elseif($page_action == 'delete' && isset($_GET['id'])){
 		$bid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_brand WHERE brand_id='$bid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'inventory/brandWindow.php?&ds=1');
 		}
 
@@ -141,7 +141,7 @@ elseif($page_action == 'delete' && isset($_GET['id'])){
                                 </thead>
                                 <tbody>
                                 <?php $sql_select="SELECT * FROM tbl_brand;";
-                                      $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+                                      $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
                                       while($row=mysqli_fetch_assoc($result)){
                                 ?>	<tr>
                                 	<td><?php echo $bid=$row['brand_id'];?></td>

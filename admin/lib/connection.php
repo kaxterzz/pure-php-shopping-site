@@ -2,8 +2,8 @@
 <?php
 define('DB_HOST','localhost');
 define('DB_USER','root');
-define('DB_PASSWORD','1234');
-define('DB_DATABASE','test_project');
+define('DB_PASSWORD','Kasuna#96');
+define('DB_DATABASE','bt');
 define('DB_PORT','3306');
 
 //define('DB_HOST','localhost');

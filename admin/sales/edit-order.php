@@ -29,7 +29,7 @@ if(isset($_GET['id'])){
 	$invid=$_GET['id'];
 	$page_title='Edit Customer Order '.$invid;
 	$sql_all="SELECT C.cus_fname,I.inv_emp_id,I.inv_gtot,I.inv_disc,I.inv_ntot FROM tbl_invoice I,tbl_customer C WHERE I.inv_id='$invid' AND I.inv_cus_id=C.cus_id;";
-	$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+	$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 	$row=mysqli_fetch_assoc($result);
 	$cus=$row['cus_fname'];
 	$empid=$row['inv_emp_id'];
@@ -77,7 +77,7 @@ if(isset($_GET['id'])){
             <td><select class="form-control" id="cmbcat" name="cmbcat">
                 <option value="">--Select Category--</option>
                 <?php $sql_opt="SELECT * FROM tbl_category WHERE cat_stat=1;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $cid=$row['cat_id'];
 											   $catname=$row['cat_name'];
@@ -150,7 +150,7 @@ if(isset($_GET['id'])){
                             </thead>
                             <tbody id="inv-update-tbl">
                             	<?php $sql_all2="SELECT I.prd_id,P.prd_name,I.prd_u_price,I.inv_prd_qnty,I.inv_prd_tot FROM tbl_inv_info I,tbl_products P WHERE inv_id='$invid' AND I.prd_id=P.prd_id;";
-								  $result2=mysqli_query($conn,$sql_all2) or die("MYSQL Error:".mysqli_error());
+								  $result2=mysqli_query($GLOBALS['conn'],$sql_all2) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								  while($row2=mysqli_fetch_assoc($result2)){?>
 									<tr id="<?php echo $tblprdid=$row2['prd_id']; ?>">
                                     <td><?php echo $tblprdid ?></td>

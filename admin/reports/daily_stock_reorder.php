@@ -49,7 +49,7 @@ $date=$_POST['dailyrestock'];
                 <tbody id="daily_stock_reorder_details">
                 <?php 
 					$sql="SELECT prd_id,prd_name,prd_tot_qnty,prd_reorder_lvl FROM tbl_products WHERE prd_stat=1 GROUP BY prd_id;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$qnty='';
 					$reorderqnty='';

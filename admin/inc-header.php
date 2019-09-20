@@ -169,7 +169,7 @@ else if($c_page=='administration'){
  
  <div class="top2 alert alert-info" style="margin:0px;padding:0px">
  			<?php $sql="SELECT emp_fname,emp_lname FROM tbl_emp WHERE emp_id='$logempid';";
-				$res=mysqli_query($conn,$conn,$sql) or die("MYSQL Error:".mysqli_error());
+				$res=mysqli_query($GLOBALS['conn'],$conn,$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				$nor=mysqli_num_rows($res);
 				if($nor>0){
 					$row=mysqli_fetch_assoc($res);
@@ -323,7 +323,7 @@ else if($c_page=='administration'){
  
  <div class="top2 alert alert-info" style="margin:0px;padding:0px">
  			<?php $sql="SELECT emp_fname,emp_lname FROM tbl_emp WHERE emp_id='$logempid';";
-				$res=mysqli_query($conn,$conn,$sql) or die("MYSQL Error:".mysqli_error());
+				$res=mysqli_query($GLOBALS['conn'],$conn,$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				$nor=mysqli_num_rows($res);
 				if($nor>0){
 					$row=mysqli_fetch_assoc($res);
@@ -424,7 +424,7 @@ else if($c_page=='administration'){
  
  <div class="top2 alert alert-info" style="margin:0px;padding:0px">
  			<?php $sql="SELECT emp_fname,emp_lname FROM tbl_emp WHERE emp_id='$logempid';";
-				$res=mysqli_query($conn,$conn,$sql) or die("MYSQL Error:".mysqli_error());
+				$res=mysqli_query($GLOBALS['conn'],$conn,$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				$nor=mysqli_num_rows($res);
 				if($nor>0){
 					$row=mysqli_fetch_assoc($res);

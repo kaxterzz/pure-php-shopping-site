@@ -49,7 +49,7 @@ $date=$_POST['yearlylysales'];
                 <?php 
 					$sql="SELECT MONTH(inv_date),SUM(inv_ntot) FROM tbl_invoice WHERE YEAR(inv_date)='$date'
 GROUP BY MONTH(inv_date);";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$i=1;
 					$ntot=0;

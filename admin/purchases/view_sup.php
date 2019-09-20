@@ -20,7 +20,7 @@ if(isset($_GET['action'])){
 	if($page_action=='delete' && isset($_GET['id'])){
 		$cusid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_supplier WHERE sup_id='$supid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'purchases/view_sup.php?id='.$supid.'&ds=1');
 		}
 	}
@@ -65,7 +65,7 @@ if(isset($_GET['action'])){
                         </thead>
                         <tbody>
                         <?php $sql_select="SELECT * FROM tbl_supplier;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

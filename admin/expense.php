@@ -42,7 +42,7 @@ if(isset($_GET['action'])){
 				}	
 			else{
 				$sql_insert="INSERT INTO tbl_expense(exp_id,exp_type,exp_pdate,exp_amount,exp_stat) VALUES('$expid','$expense','$date','$amnt','$stat');";
-				mysqli_query($conn,$sql_insert) or die("Mysql error".mysqli_error());
+				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				header('Location:'.$base_url.'expense.php?action=add&id='.$expid.'&s=1');
 				mysqli_close($con);
 				}	//else close
@@ -54,7 +54,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$expid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_expense WHERE exp_id='$expid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$expense=$row['exp_type'];
 			$date=$row['exp_pdate'];
@@ -77,7 +77,7 @@ if(isset($_GET['action'])){
 					}	
 				else{
 					$sql_update="UPDATE tbl_expense SET exp_type='$expense',exp_pdate='$date',exp_amount='$amnt',exp_stat='$stat' WHERE exp_id='$expid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'expense.php?&id='.$expid.'&s=1');
 					}	// else close
 		
@@ -90,7 +90,7 @@ elseif($page_action == ''){
 elseif($page_action == 'delete' && isset($_GET['id'])){
 		$jid=$_GET['id'];
 		$sql_delete="DELETE FROM tbl_expense WHERE exp_id='$expid'";
-		mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		header('Location:'.$base_url.'expense.php?id='.$expid.'&ds=1');
 		}
 
@@ -139,7 +139,7 @@ elseif($page_action == 'delete' && isset($_GET['id'])){
                                 </thead>
                                 <tbody>
                                 <?php $sql_select="SELECT E.exp_id,ET.exp_type,E.exp_pdate,E.exp_amount,E.exp_stat FROM tbl_expense E,tbl_expense_type ET WHERE E.exp_type=ET.exp_type_id;";
-                                      $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+                                      $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
                                       while($row=mysqli_fetch_assoc($result)){
                                           
                                 ?>	<tr>
@@ -198,7 +198,7 @@ elseif($page_action == 'delete' && isset($_GET['id'])){
                                 <select class="form-control" id="cmbexptype" name="cmbexptype">
                                       <option value="">--Select--</option>
 										 <?php $sql_opt="SELECT * FROM tbl_expense_type;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $exptypeid=$row['exp_type_id'];
 											   $exptype=$row['exp_type'];

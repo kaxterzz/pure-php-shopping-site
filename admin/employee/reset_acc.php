@@ -18,7 +18,7 @@ $repass='';
 $frm_err_msg='';
 
 $sql_all="SELECT emp_uname,emp_fname FROM tbl_emp WHERE emp_id='$eid';";
-$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 $row=mysqli_fetch_assoc($result);
 $uname=$row['emp_uname'];
 $ename=$row['emp_fname'];
@@ -49,7 +49,7 @@ if(isset($_POST['btnsubmit']) && ($_POST['btnsubmit'] == "Submit")){
 		}	
 	else{
 		$sql="UPDATE tbl_emp SET emp_pass='$epass' WHERE emp_id='$eid';";
-		mysqli_query($conn,$sql) or die("Mysql error".mysqli_error());
+		mysqli_query($GLOBALS['conn'],$sql) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 		$from ="binnytraders@gmail.com";
 		$header = "From : ".$from;
 		$header .= "MIME-Version: 1.0\n";

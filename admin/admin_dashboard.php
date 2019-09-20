@@ -29,7 +29,7 @@ $c_page = 'dashboard'; // current page
 	$date = date('Y-m-d', strtotime($tdate .' +7 day'));
 	//edit
 $sql="SELECT batch_id,prd_id,batch_settle_date FROM tbl_batch WHERE batch_settle_date='$date';";
-	$res=mysqli_query($conn,$sql) or die("MYSQL Error:".mysqli_error());
+	$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 	$nor=mysqli_num_rows($res);
 	if($nor!=0){
 		$arr=array();
@@ -97,7 +97,7 @@ $sql="SELECT batch_id,prd_id,batch_settle_date FROM tbl_batch WHERE batch_settle
                 <tbody>
                 	<?php 
 					$sql="SELECT E.emp_fname, E.emp_lname,SUM(inv_ntot) FROM tbl_invoice I, tbl_emp E WHERE I.inv_emp_id = E.emp_id GROUP BY E.emp_id;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					if($nor>0){	
 						while($row=mysqli_fetch_assoc($res)){ ?>
@@ -128,7 +128,7 @@ $sql="SELECT batch_id,prd_id,batch_settle_date FROM tbl_batch WHERE batch_settle
                 <tbody>
                 	<?php 
 					$sql="SELECT prd_id,prd_name,prd_tot_qnty FROM tbl_products WHERE prd_stat=1 GROUP BY prd_id;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					if($nor>0){	
 						while($row=mysqli_fetch_assoc($res)){ ?>
@@ -162,7 +162,7 @@ $sql="SELECT batch_id,prd_id,batch_settle_date FROM tbl_batch WHERE batch_settle
                 <tbody>
                 	<?php 
 					$sql="SELECT prd_id,prd_name,prd_tot_qnty,prd_reorder_lvl FROM tbl_products WHERE prd_stat=1 GROUP BY prd_id;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					if($nor>0){	
 						while($row=mysqli_fetch_assoc($res)){ ?>
@@ -202,7 +202,7 @@ for($i=1;$i<=$num_days;$i++){
 	
 	$sql1 = "SELECT DATE(inv_date),SUM(inv_ntot) FROM tbl_invoice WHERE DAY(inv_date)='$i' AND MONTH(inv_date)='".date('m')."' AND YEAR(inv_date)='".date('Y')."' AND inv_online='1' GROUP BY DATE(inv_date);"; //monthly sales online
 	
-	$res1=mysqli_query($conn,$sql1) or die("SQL Error:".mysqli_error());
+	$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 	$nor1=mysqli_num_rows($res1);
 	
 	if($nor1>0){	
@@ -215,7 +215,7 @@ for($i=1;$i<=$num_days;$i++){
 	//off
 	$sql2 = "SELECT DATE(inv_date),SUM(inv_ntot) FROM tbl_invoice WHERE DAY(inv_date)='$i' AND MONTH(inv_date)='".date('m')."' AND YEAR(inv_date)='".date('Y')."' AND inv_online='0' GROUP BY inv_date;"; //monthly sales online
 	
-	$res2=mysqli_query($conn,$sql2) or die("SQL Error:".mysqli_error());
+	$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 	$nor2=mysqli_num_rows($res2);
 	
 	if($nor2>0){	
@@ -264,7 +264,7 @@ $arr_items= array();
 $arr_dsalse = array();
 $today=date('y-m-d');//".date('y-m-d')."
 $sql="SELECT I.prd_id,P.prd_name,SUM(inv_prd_qnty),SUM(inv_prd_tot) FROM tbl_products P,tbl_inv_info I WHERE I.prd_id=P.prd_id AND I.inv_date='$today' GROUP BY prd_id;";
-$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 while($row=mysqli_fetch_assoc($res)){
 	
 	array_push($arr_items,$row['prd_name']);	

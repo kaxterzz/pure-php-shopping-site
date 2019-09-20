@@ -68,11 +68,11 @@ function addCategory(){			//category.php modal adding new category to db
 	}
 	else{
 		$sql1="INSERT INTO tbl_category(cat_id,cat_name,cat_stat,cat_super_cat) VALUES('$catid','$cat','$cstat','$supcat');";
-		$res1=mysqli_query($conn,$sql1) or die("SQL Error:".mysqli_error());
+		$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		foreach($cfarr as $val){
 		 $feature=$val;
 		 $sql2="INSERT INTO tbl_cat_feature(cat_id,cat_feature,feature_stat) VALUES('$catid','$feature','1');";
-		 $res2=mysqli_query($conn,$sql2) or die("SQL Error:".mysqli_error());
+		 $res2=mysqli_query($GLOBALS['conn'],$sql2) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		}
 		if($res1>0 && $res2>0){
 				echo('3|Successfuly data saved');	
@@ -85,7 +85,7 @@ function addCategory(){			//category.php modal adding new category to db
 
 function getCategory($cat){ // get dropdown items of Category product.php?action=add
 	$sql_opt="SELECT * FROM tbl_category WHERE cat_stat=1;";
-    $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+    $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 	
 	if(mysqli_num_rows($result)>0){
 		 while($row=mysqli_fetch_assoc($result)){
@@ -104,7 +104,7 @@ function getCategory($cat){ // get dropdown items of Category product.php?action
 	
 function getBrand($brand){ // get dropdown items of Brand product.php?action=add
 	$sql_opt="SELECT * FROM tbl_brand WHERE brand_stat=1;";
-    $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+    $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 	
 	if(mysqli_num_rows($result)>0){
 		
@@ -134,7 +134,7 @@ function addBrand(){			//brand.php modal adding new brand to db
 	}
 	else{
 		$sql="INSERT INTO tbl_brand(brand_id,brand_name,brand_stat) VALUES('$bid','$brand','$bstat');";
-		$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+		$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 			 if($res>0){
 				echo('3_Successfuly data saved');	
 			}
@@ -148,7 +148,7 @@ function FeatrByCate(){	// feature items on dropdown product.php
 	$catid=$_GET['cid'];
 	print_r($catid);
 	$sql="SELECT cat_feature_id,cat_feature FROM tbl_cat_feature WHERE cat_id='$catid' AND feature_stat=1;";
-	$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+	$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 	if(mysqli_num_rows($res)>0){
 		echo '<option value="">--Select Feature--</option>';
 		 while($row=mysqli_fetch_assoc($res)){
@@ -162,7 +162,7 @@ function FeatrByCate(){	// feature items on dropdown product.php
 function GetFeature(){ // get the feature to the input box by selecting from the dropdown list
 	$fid=$_GET['featrid'];
 	$sql="SELECT cat_feature FROM tbl_cat_feature WHERE cat_feature_id=$fid AND feature_stat=1;";
-	$result = mysqli_query($conn,$sql) or die("SQL Error : ".mysqli_error());
+	$result = mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));
 	if($row=mysqli_num_rows($result)>0){
 		 $rec = mysqli_fetch_array($result);
 		  echo($rec[0]);
@@ -214,7 +214,7 @@ function addPrds(){ //send products details in product.php?action=add by submit 
 	 else{
 	    move_uploaded_file($ftname,$path);	
 	    $sql1="INSERT INTO tbl_products(prd_id,prd_name,cat_id,brand_id,prd_img_path,prd_reorder_lvl,prd_stat) VALUES('$pid','$pname','$cat','$brand','$img','$reorderlvl','$stat');";	
-	  $res1 = mysqli_query($conn,$sql1) or die("SQL Error : ".mysqli_error());
+	  $res1 = mysqli_query($GLOBALS['conn'],$sql1) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));
 	  echo "1|success";
 	 }
 } 
@@ -226,7 +226,7 @@ function addfeatures(){ //send feature details in product.php?action=add by subm
 			$ptype = $arr1[0];
 			$pdata = $arr1[1];
 			$sql2="INSERT INTO tbl_prd_info(prd_id,pi_type,pi_data,pi_stat) VALUES('$pid','$ptype','$pdata','1');";
-			$res2 = mysqli_query($conn,$sql2) or die("SQL Error : ".mysqli_error());
+			$res2 = mysqli_query($GLOBALS['conn'],$sql2) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));
 				
 		}
 		if( $res2>0){
@@ -254,7 +254,7 @@ function addfeatures(){ //send feature details in product.php?action=add by subm
 function remvfeatr(){	//delete the product feature from tbl_prd_info when remove icon is clicked in the edit_product.php
 	$pi_id=$_GET['pi_id'];
 	$sql="DELETE FROM tbl_prd_info WHERE pi_id='$pi_id';";
-	$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+	$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 	if($res>0)
 		echo "1";	
 	
@@ -306,14 +306,14 @@ function updateprds(){ //update the products into db of edit_product.php
 		else{
 	   		move_uploaded_file($ftname,$path);	
 	    	$sql1="UPDATE tbl_products SET prd_name='$pname',cat_id='$cat',brand_id='$brand',prd_img_path='$img',prd_stat='$stat' WHERE prd_id='$pid';";	
-	  		$res1 = mysqli_query($conn,$sql1) or die("SQL Error : ".mysqli_error());
+	  		$res1 = mysqli_query($GLOBALS['conn'],$sql1) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));
 	  		echo "1_success";
 		 }
 	 }//end elseif($ftname != '')
 	 
 	 else{	
 	    $sql1="UPDATE tbl_products SET prd_name='$pname',cat_id='$cat',brand_id='$brand',prd_stat='$stat' WHERE prd_id='$pid';";	
-	  $res1 = mysqli_query($conn,$sql1) or die("SQL Error : ".mysqli_error());
+	  $res1 = mysqli_query($GLOBALS['conn'],$sql1) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));
 	  echo "1_success";
 	 }
 
@@ -329,7 +329,7 @@ function updatefeatures(){ // update the values of features in edit_product.php
 			$fdata = $arr1[2];
 			$fstat=$arr1[3];
 			$sql2="UPDATE tbl_prd_info SET pi_type='$ftype',pi_data='$fdata',pi_stat='$fstat' WHERE prd_id='$pid' AND pi_id=$fid;";
-			$res2 = mysqli_query($conn,$sql2) or die("SQL Error : ".mysqli_error());	
+			$res2 = mysqli_query($GLOBALS['conn'],$sql2) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));	
 		}
 		if( $res2>0)
 			echo "1_Record has been Successfully Updated";
@@ -341,7 +341,7 @@ function proByCate(){ //get products in to dropdown based on category
 	//$pid=$_GET['prdid'];
 	$catid=$_GET['catid'];
 	$sql = "SELECT prd_id,prd_name FROM tbl_products WHERE cat_id='$catid' AND prd_stat=1;";
-	$result = mysqli_query($conn,$sql) or die("SQL Error : ".mysqli_error());
+	$result = mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));
 	$nor = mysqli_num_rows($result);
 	if($result>0){
 		echo ("<option value=''>--Select Product--</option>");
@@ -361,7 +361,7 @@ function proByCate(){ //get products in to dropdown based on category
 
 function proCate($cat,$prd){ // to get the previously selected prd which belong to the particular cat in add_batch.php
 	$sql_opt="SELECT prd_id,prd_name FROM tbl_products WHERE cat_id='$cat' AND prd_stat=1;";
-    $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+    $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 	
 	if(mysqli_num_rows($result)>0){
 		
@@ -382,7 +382,7 @@ function proCate($cat,$prd){ // to get the previously selected prd which belong 
 function deleteCatFeatr()	{ // remove previously added features in the categoryWindow.php
 	$fid=$_GET['fid'];
 	$sql="DELETE FROM tbl_cat_feature WHERE cat_feature_id='$fid';";
-	$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+	$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 	if($res>0)
 		echo "1";	
 	
@@ -396,13 +396,13 @@ $cname=$_POST['cname'];
 $stat=$_POST['stat'];
 $pfarr=$_POST['pfarr'];	
 $sql1="UPDATE tbl_category SET cat_name='$cname' cat_stat='$stat' WHERE cat_id='$cid';";
-$res1=mysqli_query($conn,$sql1) or die("MYSQL Error:".mysqli_error());
+$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 if($res1>0){
 	foreach($pfarr as $arr1){
 			$fid=$arr1[0];
 			$fname=$arr1[1];
 			$sql2="UPDATE tbl_cat_feature SET cat_feature='$fname' WHERE cat_feature_id='$fid';";
-			$res2 = mysqli_query($conn,$sql2) or die("SQL Error : ".mysqli_error());	
+			$res2 = mysqli_query($GLOBALS['conn'],$sql2) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));	
 			if($res2>0)
 				echo('1|Success');
 			else
@@ -419,7 +419,7 @@ $nfarr=$_POST['nfarr'];
 foreach($nfarr as $arr1){
 			$fname=$arr1[0];
 			$sql2="INSERT INTO tbl_cat_feature(cat_id,cat_feature,feature_stat) VALUES('$cid','$fname',1);";
-			$res2 = mysqli_query($conn,$sql2) or die("SQL Error : ".mysqli_error());	
+			$res2 = mysqli_query($GLOBALS['conn'],$sql2) or die("SQL Error : ".mysqli_error($GLOBALS['conn']));	
 			if($res2>0)
 				echo('1|Successfully Record Updated');
 			else

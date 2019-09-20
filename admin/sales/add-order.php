@@ -28,7 +28,7 @@ $uprice='';
 <?php include('../inc-header.php');
 //send notifications if prds have reach the re-order lvl
 $sql="SELECT prd_id,prd_name FROM tbl_products WHERE prd_tot_qnty<=prd_reorder_lvl;";
-	$res=mysqli_query($conn,$sql) or die("MYSQL Error:".mysqli_error());
+	$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 	$nor=mysqli_num_rows($res);
 	if($nor!=0){
 		$arr=array();
@@ -105,7 +105,7 @@ $sql="SELECT prd_id,prd_name FROM tbl_products WHERE prd_tot_qnty<=prd_reorder_l
             <td><select class="form-control" id="cmbcat" name="cmbcat">
                 <option value="">--Select Category--</option>
                 <?php $sql_opt="SELECT * FROM tbl_category WHERE cat_stat=1;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $cid=$row['cat_id'];
 											   $catname=$row['cat_name'];

@@ -57,7 +57,7 @@ if(isset($_GET['action'])){
 			}		
 			else{
 				$sql_insert="INSERT INTO tbl_customer(cus_id,cus_fname,cus_lname,cus_gen,cus_add,cus_tel,cus_email) VALUES('$cusid','$fname','$lname','$gen','$add','$tel','$email');";
-				mysqli_query($conn,$sql_insert) or die("Mysql error".mysqli_error());
+				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				header('Location:'.$base_url.'sales/add_cus.php?action=add&id='.$cusid.'&s=1');
 				mysqli_close($con);
 				}	//else close
@@ -69,7 +69,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$cusid=$_GET['id'];
 			$sql_all="SELECT * FROM tbl_customer WHERE cus_id='$cusid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$fname=$row['cus_fname'];
 			$lname=$row['cus_lname'];
@@ -109,7 +109,7 @@ if(isset($_GET['action'])){
 				else{
 					$sql_update="UPDATE tbl_customer SET  
 				cus_fname='$fname',cus_lname='$lname',cus_gen='$gen',cus_add='$add',cus_tel='$tel',cus_email='$email' WHERE cus_id='$cusid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'sales/view_cus.php?&id='.$cusid.'&s=1');
 					}	// else close
 		

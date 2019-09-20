@@ -20,14 +20,14 @@ if(isset($_GET['action'])){
 	if($page_action=='delete' && isset($_GET['id'])){
 		$batchid=$_GET['id'];
 		$sql="SELECT batch_qnty,prd_id FROM tbl_batch WHERE batch_id='$batchid';";
-		$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+		$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		$row=mysqli_fetch_assoc($res);
 		$batchqnty=$row['batch_qnty'];
 		$prd=$row['prd_id'];
 		$sql_delete="DELETE FROM tbl_batch WHERE batch_id='$batchid';";
-		$res1=mysqli_query($conn,$sql_delete) or die("SQL Error:".mysqli_error());
+		$res1=mysqli_query($GLOBALS['conn'],$sql_delete) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 		$sql2="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$batchqnty' WHERE prd_id='$prd'";
-		$res2=mysqli_query($conn,$sql2) or die("Mysql error".mysqli_error());
+		$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				
 		if($res1>0 && $res2>0)
 		header('Location:'.$base_url.'inventory/view_batch.php?id='.$batchid.'&ds=1');
@@ -72,7 +72,7 @@ if(isset($_GET['action'])){
                  	 		<select id="cmbid" name="cmbid" style="height:25px;border-radius:4px">
                             	<option value="">--Select ID--</option>
 										 <?php $sql_opt="SELECT * FROM tbl_batch;";
-                                           $result=mysqli_query($conn,$sql_opt) or die("SQL error:".mysqli_error());
+                                           $result=mysqli_query($GLOBALS['conn'],$sql_opt) or die("SQL error:".mysqli_error($GLOBALS['conn']));
 										   while($row=mysqli_fetch_assoc($result)){
 											   $bid=$row['batch_id'];
 											   $select='';
@@ -138,7 +138,7 @@ if(isset($_GET['action'])){
                         <tbody id="viewRec">
                         <?php 
 							$sql_select="SELECT B.batch_id,P.prd_name,B.batch_date,B.batch_qnty,B.batch_prd_cost_price,B.batch_prd_sell_price,S.sup_comp,B.batch_stat FROM tbl_batch B JOIN tbl_products P ON B.prd_id=P.prd_id JOIN tbl_supplier S ON B.sup_id=S.sup_id WHERE B.batch_stat=1;";
-		 					$result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+		 					$result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							while($row=mysqli_fetch_assoc($result)){ 
                             $status=$row['batch_stat'];
 						if($status=='1'){

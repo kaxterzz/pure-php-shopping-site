@@ -20,7 +20,7 @@ if(isset($_GET['action'])){
 		if(isset($_GET['id'])){
 			$prid=$_GET['id'];
 			$sql_all="SELECT R.pur_retrn_id,P.prd_name,R.pur_retrn_qnty,S.sup_fname,S.sup_lname,R.pur_retrn_stat FROM tbl_purchase_return R,tbl_supplier S,tbl_products P,tbl_batch B WHERE R.prd_id=P.prd_id AND P.prd_id=B.prd_id AND B.sup_id=S.sup_id AND pur_retrn_id='$prid';";
-			$result=mysqli_query($conn,$sql_all) or die("MYSQL Error:".mysqli_error());
+			$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 			$row=mysqli_fetch_assoc($result);
 			$pname=$row['prd_name'];
 			$qnty=$row['pur_retrn_qnty'];
@@ -30,7 +30,7 @@ if(isset($_GET['action'])){
 			if(isset($_POST['btnsubmit']) && ($_POST['btnsubmit'] == "Submit")){
 				$stat=$_POST['optstat'];
 				$sql_update="UPDATE tbl_purchase_return SET pur_retrn_stat='$stat' WHERE pur_retrn_id='$prid';";
-					mysqli_query($conn,$sql_update) or die("Mysql error".mysqli_error());
+					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'purchases/pur_return.php?id='.$prid.'&s=1');	
 			}
 		}//isset id
@@ -77,7 +77,7 @@ if(isset($_GET['action'])){
                         </thead>
                         <tbody>
                         <?php $sql_select="SELECT R.pur_retrn_id,P.prd_name,R.pur_retrn_qnty,S.sup_fname,S.sup_lname,R.date_added,R.pur_retrn_stat FROM tbl_purchase_return R,tbl_supplier S,tbl_products P,tbl_batch B WHERE R.prd_id=P.prd_id AND P.prd_id=B.prd_id AND B.sup_id=S.sup_id ;";
-							  $result=mysqli_query($conn,$sql_select) or die("MYSQL Error:".mysqli_error());
+							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
 						?>	<tr>

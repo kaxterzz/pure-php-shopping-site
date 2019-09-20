@@ -49,7 +49,7 @@ $date=$_POST['dailyonlinesales'];
                 <tbody id="daily_online_sales_details">
                 <?php 
 					$sql="SELECT I.prd_id,P.prd_name,SUM(inv_prd_qnty),SUM(inv_prd_tot) FROM tbl_products P,tbl_inv_info I WHERE I.prd_id=P.prd_id AND I.inv_date='$date' AND I.inv_online=1 GROUP BY prd_id;";
-					$res=mysqli_query($conn,$sql) or die("SQL Error:".mysqli_error());
+					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$tot=0;
 					if($nor>0){	
