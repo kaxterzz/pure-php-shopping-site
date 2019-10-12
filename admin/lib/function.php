@@ -30,6 +30,7 @@ function empLogin(){
 				session_start();
 				$_SESSION["employee"]["eid"] =$rec['emp_id'];
 				$_SESSION["employee"]["etype"]=$rec['emp_job_id'];
+
 				echo("1|Successfully Logged in");
 			}
 			else

@@ -15,6 +15,9 @@ elseif(isset($_SESSION['employee'])){//edit
 		case "J0003":
 		header("Location:../admin_dashboard.php");
 		break;
+		case "J0004":
+		header("Location:../admin_dashboard.php");
+		break;
 	}
 }
 

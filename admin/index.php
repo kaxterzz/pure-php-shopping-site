@@ -60,23 +60,33 @@ include('inc-head.php');
 		else{
 			//alert("sucess");
 			$.post("lib/function.php?type=loginemp",{uname:uname,upass:upass},function(data,status){
+				console.log(data);
+				console.log(status);
+				
 				if(status=="success"){	
 						var arr = data.split("|");
-						if(arr[0]=="2"){
+						// arr = arr.filter(function(str) {
+						// 	return /\S/.test(str);
+						// });
+						var scode = arr[0].replace(/\n/ig, '');
+						console.log(arr);
+						console.log(scode);
+						if(scode==2){
 							$("#msglogin").css("display","block");
-							$("#msglogin").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
+							$("#msglogin").html("<p class='alert alert-danger'>"+'Invalid Username or Password !'+"</p>");
 							$("#txtuname").val("");
 							$("#txtupass").val("");
 							$("#txtuname").focus();
 						}
-						else if(arr[0]=="3"){
+						else if(scode==3){
 							$("#msglogin").css("display","block");
-							$("#msglogin").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
+							$("#msglogin").html("<p class='alert alert-danger'>"+'Your account has been disabled !'+"</p>");
 							$("#txtuname").val("");
 							$("#txtupass").val("");
 							
 						}
-						else if(arr[0]=="1"){
+						else if(scode==1){
+							console.log('inside log')
 							/*$("#txtuname").val("");
 							$("#txtupass").val("");
 							$("#msglogin").css("display","block");
