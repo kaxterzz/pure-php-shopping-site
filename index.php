@@ -29,7 +29,15 @@ $c_page = '';
     <div class="carousel-inner" role="listbox">
 
       <div class="item active">
-        <img src="admin/images/sitecoroasal1.PNG" alt="Promotion1" width="100%" height="345">
+        <img src="admin/images/slider-1.jpg" alt="Promotion1" width="100%" height="345">
+        <div class="carousel-caption">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+
+	  <div class="item">
+        <img src="admin/images/slider-2.jpg" alt="Promotion3" width="100%" height="345">
         <div class="carousel-caption">
           <h3></h3>
           <p></p>
@@ -37,7 +45,7 @@ $c_page = '';
       </div>
 
       <div class="item">
-        <img src="admin/images/sitecoroasal1v2.PNG" alt="Promotion2" width="100%" height="345">
+        <img src="admin/images/slider-3.jpg" alt="Promotion3" width="100%" height="345">
         <div class="carousel-caption">
           <h3></h3>
           <p></p>

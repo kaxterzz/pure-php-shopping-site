@@ -123,15 +123,15 @@ if(isset($_GET['action'])){
 					$header = "From : ".$from;
 					$header .= "MIME-Version: 1.0\n";
 					$header .= "Content-type: text/html; charset=iso-8859-1\n";
-					$to ='newuser@localhost';
+					$to ='kasunsmbox@hotmail.com';
 					$subject ='Account Reset';
 					$message ='Dear '.$fname.'<br/>Your Account password have been changed Successfully<br/><br/>Thank you';
 					$message = wordwrap($message, 70);	  
 					// send mail
-					if(mail($to,$subject,$message,$header))
+					if(mail($to,$subject,$message,$from,$header))
 						$esmsg="success email";
 
-						$resp ='+94775059818';
+						$resp ='+94702010363';
 						$msg ='Dear '.$fname.',Your Account password have been changed Successfully';
 						$gatewayURL = 'http://localhost:9333/ozeki?'; 
 						$request = 'login=admin'; 

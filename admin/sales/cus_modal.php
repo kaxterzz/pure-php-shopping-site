@@ -4,7 +4,7 @@ if((!isset($_SESSION["employee"]['etype'])) || ($_SESSION["employee"]["etype"]!=
 	header("Location:../index.php");
 }
 include('../lib/config.php'); // attach config.php
-include('../lib/connection.php'); // attach db connection
+// include('../lib/connection.php'); // attach db connection
 include('../lib/function.php');
 $meta_title = "Customer Details"; // title on the browser tab
 $c_page = 'sales';// highligting the navbar tab based on the current page

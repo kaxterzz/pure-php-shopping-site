@@ -4,7 +4,7 @@ if((!isset($_SESSION["employee"]['etype'])) || ($_SESSION["employee"]["etype"]!=
 	header("Location:../index.php");
 }
 include('../lib/config.php'); // attach config.php
-include('../lib/connection.php'); // attach db connection
+// include('../lib/connection.php'); // attach db connection
 include('../lib/function.php');
 include('../lib/inv_func.php');
 $meta_title = "Stock Details";
