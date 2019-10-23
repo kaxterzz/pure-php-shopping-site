@@ -59,7 +59,7 @@ include('inc-head.php');
 		}
 		else{
 			//alert("sucess");
-			$.post("lib/function.php?type=loginemp",{uname:uname,upass:upass},function(data,status){
+			$.post("../lib/function.php?type=loginemp",{uname:uname,upass:upass},function(data,status){
 				console.log(data);
 				console.log(status);
 				
@@ -92,7 +92,7 @@ include('inc-head.php');
 							$("#msglogin").css("display","block");
 							$("#msglogin").html("<p class='alert alert-success'>"+arr[1]+"</p>");
 							setTimeout(function(){ window.location.href="lib/route.php"; },1500);*/
-							window.location.href="lib/route.php";
+							window.location.href="../lib/route.php";
 							
 						}
 				}
