@@ -279,7 +279,7 @@ function updateprds(){ //update the products into db of edit_product.php
 	 $img = $pid."_".time().$ext;
 	 $path = "../images/products/".$img;
 	 
-	 $pname_pat='/^[a-zA-Z]+$/';
+	 $pname_pat='/^[a-zA-Z ]+$/';
 	 $reorderlvl_pat='/^[1-9]+$/';
 	 if($pname==''|| !preg_match($pname_pat,$pname)){
 		echo '2_Please enter a valid Product Name';

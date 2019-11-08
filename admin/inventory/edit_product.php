@@ -1,6 +1,6 @@
 <?php
 session_start();
-if((!isset($_SESSION["employee"]['etype']) || ($_SESSION["employee"]["etype"]!=="J0002") || ($_SESSION["employee"]["etype"]!=="J0001"))){
+if((!isset($_SESSION["employee"]['etype'])) || ($_SESSION["employee"]["etype"]!=="J0001" && $_SESSION["employee"]["etype"]!=="J0002" && $_SESSION["employee"]["etype"]!=="J0003")){
 	header("Location:../index.php");
 }
 include('../lib/config.php'); // attach config.php
@@ -107,7 +107,7 @@ if(isset($_GET['id'])){
                             </tr>
                             <tr>
                             	<td><label for="txtreorderlvl">Reorder Level<em style="color:#F00">*</em></label></td>
-                                <td colspan="2"><input class="form-control" id="txtreorderlvl" name="txtreorderlvl" type="text" value="<?php echo $reordrlvl?>"/></td>		
+                                <td colspan="2"><input class="form-control" id="reordrlvl" name="reordrlvl" type="text" value="<?php echo $reordrlvl?>"/></td>		
                             </tr>
 							<tr>
                                 <td><label for="optstat">Status<em style="color:#F00">*</em></label></td>
@@ -130,9 +130,11 @@ if(isset($_GET['id'])){
 										//alert(catid);
 											if(catid!=''){	
 												$.get("../lib/inv_func.php?type=featrbycat",{cid:catid},function(data,status){
-													if(status=="success"){
+														console.log(data);
+														console.log(status);
+														
 			  											$("#cmbfeature").append(data);
-													}
+												
 												});
 											}
 										});
@@ -190,17 +192,44 @@ if(isset($_GET['id'])){
 </html>
 <script type="text/javascript">
 	function removerow(obj){
-			//alert(obj);
-			var index = obj.parentNode.parentNode.rowIndex;
-			var pi_id=obj.parentNode.parentNode.cells[0].innerHTML;
-			$.get("../lib/inv_func.php?type=remvfeatr",{pi_id:pi_id},function(data,status){
-			if(status=='success'){
-				if(data=='1'){
-					var mytable = document.getElementById("feature-tbl");
-					mytable.deleteRow(index-1);	
+		$.confirm({
+				title: 'Confirmation Dialog',
+				content: 'Are you sure ?',
+				type: 'blue',
+				typeAnimated: true,
+				buttons: {
+					yes: {
+						isHidden: false, // hide the button
+						keys: ['y'],
+						action: function () {
+							var index = obj.parentNode.parentNode.rowIndex;
+							var pi_id=obj.parentNode.parentNode.cells[0].innerHTML;
+							$.get("../lib/inv_func.php?type=remvfeatr",{pi_id:pi_id},function(data,status){
+							if(status=='success'){
+								if(data==1){
+									$.alert({
+											title: 'Success',
+											content: 'Done !',
+											type: 'green',
+											typeAnimated: true,
+										});
+									var mytable = document.getElementById("feature-tbl");
+									mytable.deleteRow(index-1);	
+								}
+							}
+							});
+						}
+					},
+					no: {
+						keys: ['N'],
+						action: function () {
+							$.alert('You clicked No.');
+						}
+					},
 				}
-			}
 			});
+			//alert(obj);
+			
 	}
 	$("#cmbfeature").change(function(){
 		var fid = $("#cmbfeature").val();
@@ -250,6 +279,9 @@ if(isset($_GET['id'])){
 		
 	});
 	$('#frmprd').submit(function(e){
+
+		console.log('in submit');
+		
 		e.preventDefault();
 		$.ajax({
 			url: "../lib/inv_func.php?type=updprds",
@@ -259,14 +291,24 @@ if(isset($_GET['id'])){
 			cache:false,
 			processData:false,
 			success: function(data){
+				console.log(data);
+				
 				//alert(data);	
 				var arr = data.split("_");
-				if(arr[0]=="2" || arr[0]=="3" || arr[0]=="4" || arr[0]=="5" || arr[0]=="6" || arr[0]=="7" || arr[0]=="8" || arr[0]=="9"){
+				console.log(arr);
+				
+				if(arr[0]!=1){
 				//alert(arr[1]);
+				$.alert({
+					title: 'Error',
+					content: arr[1],
+					type: 'red',
+					typeAnimated: true,
+				});
 				$("#msg").css("display","block");
 				$("#msg").html('<p class="bg-danger">'+arr[1]+'</p>');
 				}
-				else if(arr[0]=="1" ){
+				else if(arr[0]==1){
 					//alert(arr[1]);
 					var pid=document.getElementById('txtprdid').value;
 					var mytable = document.getElementById("feature-tbl");
@@ -287,13 +329,13 @@ if(isset($_GET['id'])){
 							if(status=="success"){	
 								//alert(data);
 								var arr = data.split("_");
-								if(arr[0]=="2"){
+								if(arr[0]==2){
 							//alert(arr[1]);
 									$("#msg").css("display","block");
 									$("#msg").html('<p class="bg-danger">'+arr[1]+'</p>');
 							
 								}
-								else if(arr[0]=="1"){
+								else if(arr[0]==1){
 									var cur_loc=window.location;
 									cur_loc=cur_loc+"&s=1";
 									//$("#form_msg").css("display","block");
