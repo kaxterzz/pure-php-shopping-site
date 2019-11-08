@@ -1,8 +1,8 @@
 <?php
 session_start();
-// if((!isset($_SESSION["employee"]['etype']) || ($_SESSION["employee"]["etype"]!=="J0002") || ($_SESSION["employee"]["etype"]!=="J0001"))){
-// 	header("Location:../index.php");
-// }
+if((!isset($_SESSION["employee"]['etype']) || ($_SESSION["employee"]["etype"]!=="J0002") || ($_SESSION["employee"]["etype"]!=="J0001"))){
+	header("Location:../index.php");
+}
 include('../lib/config.php'); // attach config.php
 // include('../lib/connection.php'); // attach db connection
 include('../lib/function.php');	// need to edit

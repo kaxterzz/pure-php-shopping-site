@@ -395,7 +395,7 @@ $cid=$_POST['cid'];
 $cname=$_POST['cname'];
 $stat=$_POST['stat'];
 $pfarr=$_POST['pfarr'];	
-$sql1="UPDATE tbl_category SET cat_name='$cname' cat_stat='$stat' WHERE cat_id='$cid';";
+$sql1="UPDATE tbl_category SET cat_name='$cname', cat_stat='$stat' WHERE cat_id='$cid'";
 $res1=mysqli_query($GLOBALS['conn'],$sql1) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 if($res1>0){
 	foreach($pfarr as $arr1){

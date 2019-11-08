@@ -59,7 +59,7 @@ $frm_err_msg='';
  	</div><!--end page-title -->
       
       		<?php if($page_action=='edit'):?>
-               <form class="frm form-horizontal" action="<?php echo $base_url.'inventory/categoryWindow.php?action=edit&id='.$_GET['id']?>" name="frmcat" method="post">
+               <div class="frm form-horizontal">
 				<div class="form_msg">
 						<?php if($frm_err_msg != ''){
                             echo '<p class="bg-danger">'.$frm_err_msg.'</p>';
@@ -108,7 +108,7 @@ $frm_err_msg='';
 									<tr>
                                     
                                     <td><input type='text' id='<?php echo $row2['cat_feature_id']; ?>' name='feature_name<?php echo $row2['cat_feature_id']; ?>' value="<?php echo $row2['cat_feature']; ?>" /></td>
-                                    <td><span class='glyphicon glyphicon-remove' id='<?php echo $row2['cat_feature_id']; ?>' onclick='removerow(this);'></span></td>
+                                    <td> <a href="#" onclick='removerow(<?php echo $row2["cat_feature_id"] ?>)';><span class='glyphicon glyphicon-remove' id='<?php echo $row2['cat_feature_id']; ?>'></span></a></td>
                                     </tr>
 								<?php  }?>
                             </tbody>
@@ -121,12 +121,13 @@ $frm_err_msg='';
                         
                          <table class=" btns tbl-horizontal col-md-3">
 							<tr>
-                            	<td><input class="form-control btn btn-primary" type="button" name="btnsubmit" id="btnsubmit" value="Submit" <?php if($page_action=='edit'):?> onClick="confirmUpdate('<?php echo $base_url.'inventory/categoryWindow.php?action=edit&amp;id='.$cid ?>');" href="javascript:void(0);"<?php endif;?>/></td>
+                            	<td>
+								<a href="#" class="form-control btn btn-primary" role="button" name="btnsubmit" id="btnsubmit" href="#" <?php if($page_action=='edit'):?> onclick="addNewType(<?php $cid ?>)" <?php endif;?>>Submit</a></td>
                                 <td><input class="form-control btn btn-warning" type="reset"  name="btnreset" id="btnreset" value="Reset"/></td>
                             </tr>
                             
                         </table> 	
-                    </form>   
+                    </div>   
 			
             <?php elseif( $page_action == ''): /*check whether action of the url is add or edit and if so, dispaly a button says " view Brand Details" in the add or edit page*/?>
             <div class="page-title clearfix">
@@ -188,6 +189,8 @@ $frm_err_msg='';
         <?php include('../inc-footer.php'); ?>
 	</body>
     </html>
+
+
 <script type="text/javascript">
 var count=1;
 	$(".add_feature").click(function(){
@@ -197,24 +200,51 @@ var count=1;
 	});
 	
 function removerow(obj){ // removing previously added features
-			//alert(obj);
-			var index = obj.parentNode.parentNode.rowIndex;
-			var fid=obj.id;
+			console.log(obj);
+			// alert(obj);
+			var fid=obj;
 			//alert(index);
-			var userreq=confirm('Are you sure you sure you want to delete?');
-	if (userreq==true){
-		//alert(pid);
-		$.get("../lib/inv_func.php?type=remvcatfeatr",{fid:fid},function(data,status){
-			if(status=='success'){
-				if(data=='1'){
-					var mytable = document.getElementById("info-body");
-					mytable.deleteRow(index-3);
-					$("#msg").css("display","block");
-					$("#msg").html('<div class="alert alert-warning alert-dismissible">Successfully Feature deleted</p>');
+	
+			$.confirm({
+				title: 'Confirmation Dialog',
+				content: 'Are you sure ?',
+				type: 'blue',
+				typeAnimated: true,
+				buttons: {
+					yes: {
+						isHidden: false, // hide the button
+						keys: ['y'],
+						action: function () {
+							$.get("../lib/inv_func.php?type=remvcatfeatr",{fid:fid},function(data,status){
+								console.log(data);
+								console.log(status);
+								if(status=='success'){
+									if(data==1){
+										$.alert({
+											title: 'Success',
+											content: 'Done !',
+											type: 'green',
+											typeAnimated: true,
+										});
+										var mytable = document.getElementById("info-body");
+										mytable.deleteRow(index-3);
+										$("#msg").css("display","block");
+										$("#msg").html('<div class="alert alert-warning alert-dismissible">Successfully Feature deleted</p>');
+									}
+								}
+							});
+						}
+					},
+					no: {
+						keys: ['N'],
+						action: function () {
+							$.alert('You clicked No.');
+						}
+					},
 				}
-			}
-		});
-	}
+			});
+
+	
 			
 }
 	
@@ -226,9 +256,15 @@ function removerow2(obj){ // removing newly added features
 			mytable.deleteRow(index-4);
 	}
 
-$('#btnsubmit').click(function(){
-	var cid=document.getElementById('txtcid');	
-	var cname=document.getElementById('txtcat');
+function addNewType(cid){
+	console.log('in func')
+	console.log(cid);
+	var cid = document.getElementById('txtcid').value;
+	var cname=document.getElementById('txtcat').value;
+	console.log(cid);
+	
+	console.log(cname);
+	
 	if ($("#opt1").is(":checked")) {
          var catstat=$('#opt1').val();
     }
@@ -250,17 +286,37 @@ $('#btnsubmit').click(function(){
 		arr[i] =Array(fid,feature);
 		i++;
 	}//alert(arr[0]);
-	$.post('../lib/inv_func.php?type=updatecatfeatr',{cid:cid,cname:cname,stat:catstat,pfarr:arr},function(data,success){
-		if(status=="success"){	
+
+	console.log(arr[0]);
+	$.ajax({
+		type: "POST",
+		url: "../lib/inv_func.php?type=updatecatfeatr",
+		data: {"cid":cid,"cname":cname,"stat":catstat,"pfarr":arr}, // fix: need to append your data to the call
+		success: function (data,status) {
+			console.log(data);
+			console.log('status');
+			console.log(status);
+			
+			if(status=="success"){	
 			//alert(data);
+			
 			var arr = data.split("|");
-			if(arr[0]=="2"){
+			console.log('data');
+			console.log(arr);
+			
+			if(arr[0]==2){
 				//alert(arr[1]);
 				$("#msg").css("display","block");
 				$("#msg").html('<p class="bg-danger">'+arr[1]+'</p>');
 							
 			}
-			else if(arr[0]=="1"){	
+			else if(arr[0]==1){	
+				console.log('inside 1');
+				
+				$("#msg").css("display","block");
+				$("#msg").html('<p class="bg-success">Success !</p>');
+				console.log(row_count2);
+				
 				if(row_count2!=0){
 					var narr=new Array();
 					i=0;
@@ -271,19 +327,29 @@ $('#btnsubmit').click(function(){
 					}
 					$.post('../lib/inv_func.php?type=updatenewtfeatr',{cid:cid,nfarr:narr},function(data,success){
 					if(status=="success"){	
+					console.log(data);
+					console.log(success);
+					console.log('second elif');
+					
 					//alert(data);
 						var arr = data.split("|");
-						if(arr[0]=="2"){
+						if(arr[0]==2){
 							//alert(arr[1]);
 							$("#msg").css("display","block");
 							$("#msg").html('<p class="bg-danger">'+arr[1]+'</p>');
 										
 						}
-						else if(arr[0]=="1"){
+						else if(arr[0]==1){
 							var cur_loc=window.location;
 							cur_loc=cur_loc+"&s=1";
 							window.location=cur_loc;
 							window.location='<?php echo $base_url?>inventory/categoryWindow.php';
+							$.alert({
+								title: 'Success',
+								content: 'Done !',
+								type: 'green',
+								typeAnimated: true,
+							});
 						}
 					}
 					});
@@ -295,6 +361,11 @@ $('#btnsubmit').click(function(){
 				window.location='<?php echo $base_url?>inventory/categoryWindow.php';
 			}
 		}
+		
+		}
 	});
-});
+					
+
+}
+
 </script>

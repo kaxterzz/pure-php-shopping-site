@@ -13,6 +13,8 @@
 <!-- UI theming -->
 <link href="<?php echo($base_url) ?>jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet"/>
 <link href="<?php echo($base_url) ?>jquery-ui-1.11.4.custom/jquery-ui.theme.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
 <!-- Custom CSS -->
 <link href="<?php echo($base_url) ?>css/style.css" rel="stylesheet"/>
 <link href="<?php echo($base_url) ?>css/jAlert-v3.css" rel="stylesheet"/>
@@ -28,3 +30,4 @@
 <script src="<?php echo($base_url) ?>js/jAlert-functions.js" type="text/javascript"></script>
 <!-- jquery ui -->
 <script src="<?php echo($base_url) ?>jquery-ui-1.11.4.custom/jquery-ui.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
