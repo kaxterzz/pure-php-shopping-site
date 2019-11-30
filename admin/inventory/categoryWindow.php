@@ -279,15 +279,15 @@ function addNewType(cid){
 	var row_count2=table2.rows.length;
 	
 	i=0;
-	while (i<row_count){
-		var fid=table.rows[i].cells[0].childNodes[0].id;
+	while (i<row_count2){
+		var fid=table2.rows[i].cells[0].childNodes[0].id;
 		//alert(fid);
-		var feature=table.rows[i].cells[0].childNodes[0].value;
+		var feature=table2.rows[i].cells[0].childNodes[0].value;
 		arr[i] =Array(fid,feature);
 		i++;
 	}//alert(arr[0]);
 
-	console.log(arr[0]);
+	console.log(arr);
 	$.ajax({
 		type: "POST",
 		url: "../lib/inv_func.php?type=updatecatfeatr",

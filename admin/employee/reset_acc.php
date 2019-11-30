@@ -17,11 +17,12 @@ $pass='';
 $repass='';
 $frm_err_msg='';
 
-$sql_all="SELECT emp_uname,emp_fname FROM tbl_emp WHERE emp_id='$eid';";
+$sql_all="SELECT emp_uname,emp_fname,emp_email FROM tbl_emp WHERE emp_id='$eid';";
 $result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 $row=mysqli_fetch_assoc($result);
 $uname=$row['emp_uname'];
 $ename=$row['emp_fname'];
+$eemail=$row['emp_email'];
 if(isset($_POST['btnsubmit']) && ($_POST['btnsubmit'] == "Submit")){
 	$pass=$_POST['txtpass'];
 	$repass=$_POST['txtrepass'];
@@ -50,32 +51,18 @@ if(isset($_POST['btnsubmit']) && ($_POST['btnsubmit'] == "Submit")){
 	else{
 		$sql="UPDATE tbl_emp SET emp_pass='$epass' WHERE emp_id='$eid';";
 		mysqli_query($GLOBALS['conn'],$sql) or die("Mysql error".mysqli_error($GLOBALS['conn']));
-		$from ="binnytraders@gmail.com";
+		$from ="clothshop@gmail.com";
 		$header = "From : ".$from;
 		$header .= "MIME-Version: 1.0\n";
 		$header .= "Content-type: text/html; charset=iso-8859-1\n";
-		$to ='newuser@localhost';
+		$to = $eemail;
 		$subject ='Account Reset';
 		$message ='Dear '.$ename.'<br/>Your Account password have been changed Successfully<br/><br/>Thank you';
 		$message = wordwrap($message, 70);	  
 		// send mail
 		if(mail($to,$subject,$message,$header))
 				$esmsg="success email";
-
-				$resp ='+94775059818';
-				$msg ='Dear '.$ename.',Your Account password have been changed Successfully';
-				$gatewayURL = 'http://localhost:9333/ozeki?'; 
-				$request = 'login=admin'; 
-				$request .= '&password=abc123'; 
-				$request .= '&action=sendMessage'; 
-				$request .= '&messageType=SMS:TEXT'; 
-				$request .= '&recepient='.urlencode($resp); 
-				$request .= '&messageData='.urlencode($msg);
-				$url = $gatewayURL . $request; 
-				//Open the URL to send the message 
-				file($url);
-				$smsg="success";
-				if($esmsg=='success email'&& $smsg=='success'){
+				if($esmsg=='success email'){
 				header('Location:'.$base_url.'employee/reset_acc.php?&id='.$eid.'&s=1');	
 		}
 
