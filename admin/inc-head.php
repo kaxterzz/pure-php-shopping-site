@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $meta_title ?></title>
 <!-- title icon-->
-<link rel="shortcut icon" href="<?php echo($base_url) ?>images/small_logo copy.png"/>
+<link rel="shortcut icon" href="<?php echo($base_url) ?>images/small_logo_2.jpg"/>
 <!-- Mobile viewport optimized -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <!-- Bootstrap CSS -->
