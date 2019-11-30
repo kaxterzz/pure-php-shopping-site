@@ -17,10 +17,10 @@
             	<ul class="nav navbar-nav">
                 	
 				    <li class="dropdown dp1">
-                    	<a href="#" class="dropdown-toggle" data-toggle="dp1">Musicals <b class="caret"></b></a>
+                    	<a href="#" class="dropdown-toggle" data-toggle="dp1">Smart Casual <b class="caret"></b></a>
 						<ul class="dropdown-menu mega-menu">
                              <?php 
-									$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Musical'";
+									$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Smart Casual'";
 									$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 									while($row=mysqli_fetch_assoc($res)){
 									?>
@@ -35,12 +35,12 @@
 						</ul><!-- dropdown-menu -->
                     </li>
                     <li class="dropdown dp2">
-                        <a href="#" class="dropdown-toggle" data-toggle="dp2">Electricals <b class="caret"></b></a>                      
+                        <a href="#" class="dropdown-toggle" data-toggle="dp2">Trousers <b class="caret"></b></a>                      
 
 						<ul class="dropdown-menu mega-menu">
     						
                             <?php 
-								$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Electrical'";
+								$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Trousers'";
 								$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								while($row=mysqli_fetch_assoc($res)){
 									?>
@@ -55,12 +55,12 @@
 						
 					</li><!-- /.dropdown -->
 				    <li class="dropdown dp3">
-                        <a href="#" class="dropdown-toggle" data-toggle="dp3">Lightings <b class="caret"></b></a>                      
+                        <a href="#" class="dropdown-toggle" data-toggle="dp3">Casual Wears <b class="caret"></b></a>                      
 
 						<ul class="dropdown-menu mega-menu">
     						
                             <?php 
-								$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Lightings'";
+								$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Casual Wears'";
 								$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								while($row=mysqli_fetch_assoc($res)){
 									?>
@@ -75,12 +75,12 @@
 						
 					</li><!-- /.dropdown -->    
                     <li class="dropdown dp4">
-                        <a href="#" class="dropdown-toggle" data-toggle="dp4">Electronics <b class="caret"></b></a>                      
+                        <a href="#" class="dropdown-toggle" data-toggle="dp4">Foot Wears <b class="caret"></b></a>                      
 
 						<ul class="dropdown-menu mega-menu">
     						
                             <?php 
-								$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Electronics'";
+								$sql="SELECT cat_id,cat_name FROM tbl_category WHERE cat_stat=1 AND cat_super_cat='Foot Wears'";
 								$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								while($row=mysqli_fetch_assoc($res)){
 									?>

@@ -119,11 +119,11 @@ if(isset($_GET['action'])){
 				else{
 					$sql_update="UPDATE tbl_customer SET cus_pass='$epass' WHERE cus_id='$cid';";
 					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
-					$from ="binnytraders@gmail.com";
+					$from ="clothshop@gmail.com";
 					$header = "From : ".$from;
 					$header .= "MIME-Version: 1.0\n";
 					$header .= "Content-type: text/html; charset=iso-8859-1\n";
-					$to ='kasunsmbox@hotmail.com';
+					$to =$uname;
 					$subject ='Account Reset';
 					$message ='Dear '.$fname.'<br/>Your Account password have been changed Successfully<br/><br/>Thank you';
 					$message = wordwrap($message, 70);	  
@@ -131,20 +131,20 @@ if(isset($_GET['action'])){
 					if(mail($to,$subject,$message,$from,$header))
 						$esmsg="success email";
 
-						$resp ='+94702010363';
-						$msg ='Dear '.$fname.',Your Account password have been changed Successfully';
-						$gatewayURL = 'http://localhost:9333/ozeki?'; 
-						$request = 'login=admin'; 
-						$request .= '&password=abc123'; 
-						$request .= '&action=sendMessage'; 
-						$request .= '&messageType=SMS:TEXT'; 
-						$request .= '&recepient='.urlencode($resp); 
-						$request .= '&messageData='.urlencode($msg);
-						$url = $gatewayURL . $request; 
-						//Open the URL to send the message 
-						file($url);
-						$smsg="success";
-						if($esmsg=='success email'&& $smsg=='success')
+						// $resp ='+94712000300';
+						// $msg ='Dear '.$fname.',Your Account password have been changed Successfully';
+						// $gatewayURL = 'http://localhost:9333/ozeki?'; 
+						// $request = 'login=admin'; 
+						// $request .= '&password=abc123'; 
+						// $request .= '&action=sendMessage'; 
+						// $request .= '&messageType=SMS:TEXT'; 
+						// $request .= '&recepient='.urlencode($resp); 
+						// $request .= '&messageData='.urlencode($msg);
+						// $url = $gatewayURL . $request; 
+						// //Open the URL to send the message 
+						// file($url);
+						// $smsg="success";
+						if($esmsg=='success email')
 							header('Location:'.$base_url.'myaccount.php?&id='.$cid.'&ss=1');	
 						
 				}	// else close

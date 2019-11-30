@@ -486,7 +486,16 @@ function addinv_cus(){//add invoice by registered customer
 	$denum=false;
 	$verified=false;
 	if(isset($_SESSION['customer'])|| isset($_SESSION['customer']['cid']) ){ // if user is  logon to its account
+		
 		$cid=$_SESSION['customer']['cid'];
+
+		$sql_all="SELECT * FROM tbl_customer WHERE cus_id='$cid';";
+		$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
+		$row=mysqli_fetch_assoc($result);
+		$cus_email=$row['cus_email'];
+
+
+
 		$gtot=$_POST['gtot'];
 		$ship=$_POST['ship'];
 		$ntot=$_POST['ntot'];
@@ -581,11 +590,11 @@ function addinv_cus(){//add invoice by registered customer
 						$sql3="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty' WHERE prd_id='$pid';";
 						$res3=mysqli_query($GLOBALS['conn'],$sql3) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 						if($res3>0){
-							  $from ="binnytraders@gmail.com";
+							  $from ="clothshop@gmail.com";
 							  $header = "From : ".$from;
 							  $header .= "MIME-Version: 1.0\n";
 							  $header .= "Content-type: text/html; charset=iso-8859-1\n";
-							  $to ='newuser@localhost';
+							  $to =$cus_email;
 							  $subject ='Order Receipt '.$invid;
 							  $message ='Dear Customer,<br/>&nbsp;&nbsp;Thank you for your Order.<br/><br/><b style="color:#3399ff">Order Summary</b><br/><b>Invoice No:</b>'.$invid.'<br/><b>Total Amount:</b>Rs.'.$ntot.'<br/><br/>Please pay the above amount within 2 days of order placement.<br/><br/>Thank you';
 							  
@@ -620,6 +629,14 @@ session_start();
 	$verified=false;
 	if(!isset($_SESSION['customer'])|| !isset($_SESSION['customer']['cid']) ){ // if user is  logon to its account
 		$session_id=session_id();
+		$cid=$_SESSION['customer']['cid'];
+
+		$sql_all="SELECT * FROM tbl_customer WHERE cus_id='$cid';";
+		$result=mysqli_query($GLOBALS['conn'],$sql_all) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
+		$row=mysqli_fetch_assoc($result);
+		$cus_email=$row['cus_email'];
+
+		
 		$gtot=$_POST['gtot'];
 		$ship=$_POST['ship'];
 		$ntot=$_POST['ntot'];
@@ -714,11 +731,11 @@ session_start();
 						$sql3="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty' WHERE prd_id='$pid';";
 						$res3=mysqli_query($GLOBALS['conn'],$sql3) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 						if($res3>0){
-							  $from ="binnytraders@gmail.com";
+							  $from ="clothshop@gmail.com";
 							  $header = "From : ".$from;
 							  $header .= "MIME-Version: 1.0\n";
 							  $header .= "Content-type: text/html; charset=iso-8859-1\n";
-							  $to ='newuser@localhost';
+							  $to =$cus_email;
 							  $subject ='Order Receipt '.$invid;
 							  $message ='Dear Customer,<br/>&nbsp;&nbsp;Thank you for your Order.<br/><br/><b style="color:#3399ff">Order Summary</b><br/><b>Invoice No:</b>'.$invid.'<br/><b>Total Amount:</b>Rs.'.$ntot.'<br/><br/>Please pay the above amount within 2 days of order placement.<br/><br/>Thank you';
 							  

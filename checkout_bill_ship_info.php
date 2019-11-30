@@ -248,7 +248,7 @@ $frm_err_msg_b='';
     		<table class"btns tbl-horizontal table-responsive">
             	<tr>
           		 	<td class="col-md-6"><a class="btn btn-warning" role="button" id="btnbcart" name="btnbcart" href="cart.php">Back to Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></td>
-                 	<td class="col-md-6"><button type="button" class="btn btn-primary" id="btncontinue" name="btncontinue" onClick="cus_id_insert_update();">Continue<span class="glyphicon glyphicon-ok"></span></button></td>
+                 	<td class="col-md-6"><button type="button" class="btn btn-primary" id="btncontinue2" name="btncontinue2">Continue<span class="glyphicon glyphicon-ok"></span></button></td>
           		</tr>
              </table>  
        </form> 
@@ -467,7 +467,7 @@ elseif(!isset($_SESSION['customer'])|| !isset($_SESSION['customer']['cid'])){ //
     		<table class"btns tbl-horizontal table-responsive">
             	<tr>
           		 	<td class="col-md-6"><a class="btn btn-warning" role="button" id="btnbcart" name="btnbcart" href="cart.php">Back to Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></td>
-                 	<td class="col-md-6"><button type="button" class="btn btn-primary" id="btncontinue" name="btncontinue" onClick="sess_insert();">Continue<span class="glyphicon glyphicon-ok"></span></button></td>
+                 	<td class="col-md-6"><button type="button" class="btn btn-primary" id="btncontinue" name="btncontinue">Continue<span class="glyphicon glyphicon-ok"></span></button></td>
           		</tr>
              </table>  
        </form> 
@@ -476,10 +476,52 @@ elseif(!isset($_SESSION['customer'])|| !isset($_SESSION['customer']['cid'])){ //
  <?php include('admin/inc-footer.php'); ?>
    
 </body>
-</html>
+
 <script type="text/javascript">
-	function sess_insert(){ //insert billing and shipping details when a guest customer proceeds
-		//alert('done');
+$('#btncontinue2').click(function(){
+			//alert('done');
+			var Bfname=$('#txtBfname').val();
+		var Blname=$('#txtBlname').val();
+		var Bcomp=$('#txtBcomp').val();
+		var Badd=$('#txtBadd').val();
+		var Badd2=$('#txtBadd2').val();
+		var Bcity=$('#txtBcity').val();
+		var Bprov=$('#cmbBprov').val();
+		var Btel=$('#txtBtel').val();
+		var Bemail=$('#txtBemail').val();
+		
+		var fname=$('#txtfname').val();
+		var lname=$('#txtlname').val();
+		var comp=$('#txtcomp').val();
+		var add=$('#txtadd').val();
+		var add2=$('#txtadd2').val();
+		var city=$('#txtcity').val();
+		var prov=$('#cmbprov').val();
+		var tel=$('#txttel').val();
+		var email=$('#txtemail').val(); //alert(prov);
+		$.post("lib/site_functions.php?type=billshipinsrtupdt_cus",{Bfname:Bfname,Blname:Blname,Bcomp:Bcomp,Badd:Badd,Badd2:Badd2,Bcity:Bcity,Bprov:Bprov,Btel:Btel,Bemail:Bemail,fname:fname,lname:lname,comp:comp,add:add,add2:add2,city:city,prov:prov,tel:tel,email:email},function(data,status){
+			if(status=='success'){
+				console.log(data);
+				console.log(status);
+				var dataArr = data.split("|");
+				if(dataArr[0]==2 || dataArr[0]==3 || dataArr[0]==4 || dataArr[0]==5 || dataArr[0]==6){
+					$("#msgb").css("display","block");
+					$("#msgb").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');	
+				}
+				else if(dataArr[0]==7 || dataArr[0]==8 || dataArr[0]==9 || dataArr[0]==10 || dataArr[0]==11 || dataArr[0]==12){
+					$("#msgs").css("display","block");
+					$("#msgs").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
+				}
+				else if(dataArr[0]==1){
+					$("#msg").css("display","block");
+					$("#msg").html('<p class="alert alert-success">'+dataArr[1]+'</p>');
+					setTimeout(function(){ window.location.href= "check_confrm.php"; },1500);
+				}
+			}
+			});
+});
+$("#btncontinue").click(function(){
+	alert('done');
 		var Bfname=$('#txtBfname').val();
 		var Blname=$('#txtBlname').val();
 		var Bcomp=$('#txtBcomp').val();
@@ -505,65 +547,26 @@ elseif(!isset($_SESSION['customer'])|| !isset($_SESSION['customer']['cid'])){ //
 				console.log(status);
 				
 				var dataArr = data.split("|");
-				if(dataArr[0]=='2' || dataArr[0]=='3' || dataArr[0]=='4' || dataArr[0]=='5' || dataArr[0]=='6'){
+				console.log(dataArr);
+				
+				if(dataArr[0]==2 || dataArr[0]==3 || dataArr[0]==4 || dataArr[0]==5 || dataArr[0]==6){
 					$("#msgb").css("display","block");
 					$("#msgb").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');	
 				}
-				else if(dataArr[0]=='7' || dataArr[0]=='8' || dataArr[0]=='9' || dataArr[0]=='10' || dataArr[0]=='11' || dataArr[0]=='12'){
+				else if(dataArr[0]==7 || dataArr[0]==8 || dataArr[0]==9 || dataArr[0]==10 || dataArr[0]==11 || dataArr[0]==12){
 					$("#msgs").css("display","block");
 					$("#msgs").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
 				}
-				else if(dataArr[0]=='1'){
+				else if(dataArr[0]==1){
+					alert('yoo');
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-success">'+dataArr[1]+'</p>');
 					setTimeout(function(){ window.location.href= "check_confrm.php"; },1500);
 				}
 			}
 			});
-		}
-		
-function cus_id_insert_update(){ // insert/update billing details and insert shipping details if a loggedin user
-		//alert('done');
-		var Bfname=$('#txtBfname').val();
-		var Blname=$('#txtBlname').val();
-		var Bcomp=$('#txtBcomp').val();
-		var Badd=$('#txtBadd').val();
-		var Badd2=$('#txtBadd2').val();
-		var Bcity=$('#txtBcity').val();
-		var Bprov=$('#cmbBprov').val();
-		var Btel=$('#txtBtel').val();
-		var Bemail=$('#txtBemail').val();
-		
-		var fname=$('#txtfname').val();
-		var lname=$('#txtlname').val();
-		var comp=$('#txtcomp').val();
-		var add=$('#txtadd').val();
-		var add2=$('#txtadd2').val();
-		var city=$('#txtcity').val();
-		var prov=$('#cmbprov').val();
-		var tel=$('#txttel').val();
-		var email=$('#txtemail').val(); //alert(prov);
-		$.post("lib/site_functions.php?type=billshipinsrtupdt_cus",{Bfname:Bfname,Blname:Blname,Bcomp:Bcomp,Badd:Badd,Badd2:Badd2,Bcity:Bcity,Bprov:Bprov,Btel:Btel,Bemail:Bemail,fname:fname,lname:lname,comp:comp,add:add,add2:add2,city:city,prov:prov,tel:tel,email:email},function(data,status){
-			if(status=='success'){
-				console.log(data);
-				console.log(status);
-				var dataArr = data.split("|");
-				if(dataArr[0]=='2' || dataArr[0]=='3' || dataArr[0]=='4' || dataArr[0]=='5' || dataArr[0]=='6'){
-					$("#msgb").css("display","block");
-					$("#msgb").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');	
-				}
-				else if(dataArr[0]=='7' || dataArr[0]=='8' || dataArr[0]=='9' || dataArr[0]=='10' || dataArr[0]=='11' || dataArr[0]=='12'){
-					$("#msgs").css("display","block");
-					$("#msgs").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
-				}
-				else if(dataArr[0]=='1'){
-					$("#msg").css("display","block");
-					$("#msg").html('<p class="alert alert-success">'+dataArr[1]+'</p>');
-					setTimeout(function(){ window.location.href= "check_confrm.php"; },1500);
-				}
-			}
-			});
-		}		
+});
+			
 		
 function fillShipInfo()	{ //fill the shipping details automatically when 'same billing details' link is clicked
 	var Bfname=$('#txtBfname').val();
@@ -587,3 +590,4 @@ function fillShipInfo()	{ //fill the shipping details automatically when 'same b
 	$('#txtemail').val(Bemail);
 }	
 </script>
+</html>

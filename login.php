@@ -119,20 +119,20 @@ $session_id=session_id();
 				
 				if(status=="success"){	
 						var arr = data.split("|");
-						if(arr[0]=="2"){
+						if(arr[0]==2){
 							$("#msglogin").css("display","block");
 							$("#msglogin").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
 							$("#txtlemail").val("");
 							$("#txtlupass").val("");
 							$("#txtlemail").focus();
 						}
-						else if(arr[0]=="3"){
+						else if(arr[0]==3){
 							$("#msglogin").css("display","block");
 							$("#msglogin").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
 							setTimeout(function(){ window.location.href= "index.php"; },2500);
 							
 						}
-						else if(arr[0]=="1"){
+						else if(arr[0]==1){
 							$("#txtlemail").val("");
 							$("#txtlupass").val("");
 							$("#msglogin").css("display","block");
@@ -170,19 +170,19 @@ $session_id=session_id();
 				
 				if(status=="success"){	
 						var arr = data.split("|");
-						if(arr[0]=="2"){
+						if(arr[0]==2){
 							$("#msg").css("display","block");
 							$("#msg").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
 							$("#txtemail").val("");
 							$("#txtemail").focus();
 						}
-						else if(arr[0]=="3"){
+						else if(arr[0]==3){
 							$("#msg").css("display","block");
 							$("#msg").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
 							$("#txtreupass").val("");
 							$("#txtreupass").focus();
 						}
-						else if(arr[0]=="1"){
+						else if(arr[0]==1){
 							$("#txtemail").val("");
 							$("#txtupass").val("");
 							$("#txtreupass").val("");

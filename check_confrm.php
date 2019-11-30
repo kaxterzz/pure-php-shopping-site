@@ -346,7 +346,7 @@ $cvc='';
                                     <select name="ccExpY" id="ccExpY" class="form-control">
                                     	<option value="">--Select Year--</option>
 								   <?php                                  
-                                     for($i = 2015; $i < 2020; $i++)     
+                                     for($i = 2019; $i < 2030; $i++)     
                                 
                                      { echo '<option value="'.$i.'">' . $i . '</option>'; }
                                    ?> 
@@ -418,16 +418,16 @@ function placeOrder_Cus(){
 			if(status=="success"){
 				//alert(data);
 				var arr = data.split("|");
-				if(arr[0]=="1"){
+				if(arr[0]==1){
 					$("#msg").css("display","block");
 					$("#msg").html("<p class='alert alert-success'>"+arr[1]+"</p>");
 					setTimeout(function(){window.location.href="order_final.php?id="+arr[2]},500);
 				}
-				else if(arr[0]=="2"){
+				else if(arr[0]==2){
 					$("#msg").css("display","block");
 					$("#msg").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
 				}
-				else if(arr[0]=="3" || arr[0]=="4" || arr[0]=="5" || arr[0]=="6" || arr[0]=="7" || arr[0]=="8" || arr[0]=="9" || arr[0]=="10" || arr[0]=="11"){
+				else if(arr[0]==3 || arr[0]==4 || arr[0]==5 || arr[0]==6 || arr[0]==7 || arr[0]==8 || arr[0]==9 || arr[0]==10 || arr[0]==11){
 					$("#msgb").css("display","block");
 					$("#msgb").html("<p class='alert alert-danger'>"+arr[1]+"</p>");	
 				}
@@ -466,16 +466,16 @@ function placeOrder_Sess(){
 		$.post("lib/site_functions.php?type=addinv_sess",{gtot:gtot,ship:ship,ntot:ntot,parr:arr,cardholder:cardholder,cardno:cardno,cardtype:cardtype,ccExpM:ccExpM,ccExpY:ccExpY,cvc:cvc},function(data,status){
 			if(status=="success"){
 				var arr = data.split("|");
-				if(arr[0]=="1"){
+				if(arr[0]==1){
 					$("#msg").css("display","block");
 					$("#msg").html("<p class='alert alert-success'>"+arr[1]+"</p>");
 					setTimeout(function(){window.location.href="order_final.php?id="+arr[2]},500);
 				}
-				else if(arr[0]=="2"){
+				else if(arr[0]==2){
 					$("#msg").css("display","block");
 					$("#msg").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
 				}
-				else if(arr[0]=="3" || arr[0]=="4" || arr[0]=="5" || arr[0]=="6" || arr[0]=="7" || arr[0]=="8" || arr[0]=="9" || arr[0]=="10" || arr[0]=="11"){
+				else if(arr[0]==3 || arr[0]==4 || arr[0]==5 || arr[0]==6 || arr[0]==7 || arr[0]==8 || arr[0]==9 || arr[0]==10 || arr[0]==11){
 					$("#msgb").css("display","block");
 					$("#msgb").html("<p class='alert alert-danger'>"+arr[1]+"</p>");	
 				}

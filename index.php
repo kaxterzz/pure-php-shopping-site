@@ -68,11 +68,11 @@ $c_page = '';
 <div class="row">
 		<div class="catview col-md-2">
         		<div id="musix">
-                    <a href="#" class="list-group-item active">Musicals
+                    <a href="#" class="list-group-item active">Smart Casual
                     </a>
                     <ul class="list-group">
 						<?php 
-							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Musical' GROUP BY cat_id;";
+							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Smart Casual' GROUP BY cat_id;";
 							$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							while($row=mysqli_fetch_assoc($res)){
 						?>
@@ -81,14 +81,14 @@ $c_page = '';
                         </li>
                         <?php }?>
                     </ul>
-                </div><!-- end musicals -->
+                </div><!-- end Smart Casual -->
                 <!-- /.div -->
                 <div id="electronics">
-                    <a href="#" class="list-group-item active">Electricals
+                    <a href="#" class="list-group-item active">Trousers
                     </a>
                     <ul class="list-group">
 <?php 
-							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Electrical' GROUP BY cat_id;";
+							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Trousers' GROUP BY cat_id;";
 							$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							while($row=mysqli_fetch_assoc($res)){
 						?>
@@ -97,14 +97,14 @@ $c_page = '';
                         </li>
                         <?php }?>
                     </ul>
-                </div><!-- end electricals -->
+                </div><!-- end Trousers -->
                 <!-- /.div -->
                 <div id="light">
-                    <a href="#" class="list-group-item active ">Lightings
+                    <a href="#" class="list-group-item active ">Casual Wears
                     </a>
                     <ul class="list-group">
 <?php 
-							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Lightings' GROUP BY cat_id;";
+							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Casual Wears' GROUP BY cat_id;";
 							$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							while($row=mysqli_fetch_assoc($res)){
 						?>
@@ -113,14 +113,14 @@ $c_page = '';
                         </li>
                         <?php }?>
                     </ul>
-                </div><!-- end light -->
+                </div><!-- end Casual Wears -->
                 <div id="electronics">
-                    <a href="#" class="list-group-item active ">Electronics
+                    <a href="#" class="list-group-item active ">Foot Wears
                     </a>
                     <ul class="list-group">
 
                        <?php 
-							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Electronics' GROUP BY cat_id;";
+							$sql="SELECT C.cat_id,C.cat_name,COUNT(prd_id) FROM tbl_category C,tbl_products P WHERE C.cat_id=P.cat_id AND C.cat_super_cat='Foot Wears' GROUP BY cat_id;";
 							$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							while($row=mysqli_fetch_assoc($res)){
 						?>
@@ -129,7 +129,7 @@ $c_page = '';
                         </li>
                         <?php }?>
                     </ul>
-                </div><!-- end light -->
+                </div><!-- end Foot Wears -->
         </div><!-- col-md-4-->
 		<div class="prd col-md-10"><!-- Feature product view -->
         	<div class="col-md-offset-1" style="margin-bottom:30px;background-color:#FC0;padding:5px"><em><h2 style="color:#06C">Featured Products</h2></em></div>	
