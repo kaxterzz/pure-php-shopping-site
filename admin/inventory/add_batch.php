@@ -80,7 +80,7 @@ if(isset($_GET['action'])){
 				$res2=mysqli_query($GLOBALS['conn'],$sql2) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				
 				if($res1>0 && $res2>0){
-					$from ="binnytraders@gmail.com";
+					$from ="amayafashion72@gmail.com";
 				 	$header = "From : ".$from;
 					$header .= "MIME-Version: 1.0\n";
 					$header .= "Content-type: text/html; charset=iso-8859-1\n";

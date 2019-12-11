@@ -244,40 +244,40 @@ $path='';
 				//alert(data);	
 				var arr = data.split("|");
 				//alert(arr[0]);
-				if(arr[0]=="2"){
+				if(arr[0]==2){
 				//alert(arr[1]);
 				$("#msg").css("display","block");
 				$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 				}
-				else if(arr[0]=="3" ){
+				else if(arr[0]==3){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}
-				else if(arr[0]=="4" ){
+				else if(arr[0]==4){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}
-				else if(arr[0]=="5" ){
+				else if(arr[0]==5){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}		
-				else if(arr[0]=="6" ){
+				else if(arr[0]==6){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}	
-				else if(arr[0]=="7" ){
+				else if(arr[0]==7){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}
-				else if(arr[0]=="8" ){
+				else if(arr[0]==8){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}
-				else if(arr[0]=="9" ){
+				else if(arr[0]==9){
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');
 					}			
-				else if(arr[0]=="1" ){
+				else if(arr[0]==1){
 					//alert(arr[1]);
 					var pid=document.getElementById('txtprdid').value;
 					var mytable = document.getElementById("feature-tbl");
@@ -293,12 +293,12 @@ $path='';
 						$.post("../lib/inv_func.php?type=addfeatures",{pid:pid,farr:arr},function(data,status){
 							if(status=="success"){	
 								var arr = data.split("|");
-							    if(arr[0]=="1"){
+							    if(arr[0]==1){
 									$("#msg").css("display","block");
 									$("#msg").html('<p class="alert alert-success">'+arr[1]+'</p>');
 									setTimeout(function(){window.location.reload()},3000);
 								}
-								else if(arr[0]=="2"){
+								else if(arr[0]==2){
 							//alert(arr[1]);
 									$("#msg").css("display","block");
 									$("#msg").html('<p class="alert alert-danger">'+arr[1]+'</p>');

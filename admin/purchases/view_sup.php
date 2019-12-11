@@ -94,12 +94,12 @@ if(isset($_GET['action'])){
                                     ?></td>
                             <td>
                         <a class="glyphicon glyphicon-pencil link-edit" 
-                        href="<?php echo $base_url ?>purchases/add_sup.php?action=edit&amp;id=<?php echo $supid ?>" 
+                        href="<?php echo $base_url ?>purchases/add_sup.php?action=edit&amp;id=<?php echo $row['sup_id'] ?>" 
                         title="Edit"> Edit</a>
                         	</td>
                             <td>
             			<a class="glyphicon glyphicon-remove link-delete" 
-           				onclick="confirmDelete('<?php echo $base_url.'purchases/view_sup.php?action=delete&amp;id='.$supid ?>');"
+           				onclick="confirmDelete('<?php echo $base_url.'purchases/view_sup.php?action=delete&amp;id='.$row['sup_id'] ?>');"
            				href="javascript:void(0);" title="Delete"> Delete</a>
                         	</td>
                             </tr>

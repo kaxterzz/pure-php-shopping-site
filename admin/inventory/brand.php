@@ -81,7 +81,7 @@ $('#btnsubmit').click(function(){
 	$.post(url,{bid:brandid,bname:brandname,bstat:bstat},function(data,status){
 		if(status=='success'){
 			var dataArr = data.split("_");
-					if(dataArr[0]=="3"){
+					if(dataArr[0]==3){
 						$("#form_msg").css("display","block");
 						//$("#form_msg").css("background-color","#00ff00");
 						$("#form_msg").html('<p class="bg-success">'+dataArr[1]+'</p>');
@@ -92,7 +92,7 @@ $('#btnsubmit').click(function(){
 						selection_list.add(new_option);
 						setTimeout(function(){ $(".close").click() },3000);	
 					}
-					else if(dataArr[0]=="2" || dataArr[0]=="1"){
+					else if(dataArr[0]==2 || dataArr[0]==1){
 						$("#form_msg").css("display","block");
 						//$("#form_msg").css("background-color","#ff0000");
 						$("#form_msg").html('<p class="bg-danger">'+dataArr[1]+'</p>');

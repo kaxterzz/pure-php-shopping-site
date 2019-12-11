@@ -111,7 +111,7 @@ if(isset($_GET['action'])){
 			else{
 				$sql_insert="INSERT INTO 		        tbl_emp(emp_id,emp_fname,emp_lname,emp_nic,emp_gen,emp_add,emp_tel,emp_email,emp_job_id,emp_uname,emp_pass,emp_stat)     VALUES('$eid','$fname','$lname','$nic','$gen','$add','$tel','$email','$job','$uname','$epass','$stat');";
 				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
-				$from ="binnytraders@gmail.com";
+				$from ="amayafashion72@gmail.com";
 				$header = "From : ".$from;
 				$header .= "MIME-Version: 1.0\n";
 				$header .= "Content-type: text/html; charset=iso-8859-1\n";

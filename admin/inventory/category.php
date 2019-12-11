@@ -55,10 +55,10 @@ $cid=getCatId();
                                 <td><label for="cmbsupcat">Super Category</label></td>
            					 	<td><select class="form-control" id="cmbsupcat" name="cmbsupcat">
                                     <option value="">--Select Super Category--</option>
-                                    <option value="Electrical">Electrical</option>
-                                    <option value="Lightings">Lightings</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Musical">Musical</option>
+                                    <option value="Foot Wears">Foot Wears</option>
+                                    <option value="Smart Casual">Smart Casual</option>
+                                    <option value="Trousers">Trousers</option>
+                                    <option value="Casual Wears">Casual Wears</option>
                                   	</select></td>
                             </tr>
                         </table>
@@ -128,7 +128,7 @@ $('#btnsubmit').click(function(){
 	$.post(url,{cid:catid,cname:catname,cstat:catstat,scat:supcat,farr:arr},function(data,status){
 		if(status=='success'){
 			var dataArr = data.split("|");
-					if(dataArr[0]=="3"){
+					if(dataArr[0]==3){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="bg-success">'+dataArr[1]+'</p>');
 						var selection_list = document.getElementById("cmbcat");// get the id of Category combobox on product.php
@@ -138,7 +138,7 @@ $('#btnsubmit').click(function(){
 						selection_list.add(new_option);// add the new option element created on the combobox list 
 						setTimeout(function(){ $(".close").click() },3000);	// close the popup after 3000 miliseconds
 					}
-					else if(dataArr[0]=="2" || dataArr[0]=="1"){
+					else if(dataArr[0]==2 || dataArr[0]==1){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="bg-danger">'+dataArr[1]+'</p>');
 					}

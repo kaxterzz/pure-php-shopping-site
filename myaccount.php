@@ -119,7 +119,7 @@ if(isset($_GET['action'])){
 				else{
 					$sql_update="UPDATE tbl_customer SET cus_pass='$epass' WHERE cus_id='$cid';";
 					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
-					$from ="clothshop@gmail.com";
+					$from ="amayafashion72@gmail.com";
 					$header = "From : ".$from;
 					$header .= "MIME-Version: 1.0\n";
 					$header .= "Content-type: text/html; charset=iso-8859-1\n";

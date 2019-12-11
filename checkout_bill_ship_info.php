@@ -558,7 +558,6 @@ $("#btncontinue").click(function(){
 					$("#msgs").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
 				}
 				else if(dataArr[0]==1){
-					alert('yoo');
 					$("#msg").css("display","block");
 					$("#msg").html('<p class="alert alert-success">'+dataArr[1]+'</p>');
 					setTimeout(function(){ window.location.href= "check_confrm.php"; },1500);

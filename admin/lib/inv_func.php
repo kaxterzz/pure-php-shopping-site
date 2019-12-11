@@ -230,18 +230,18 @@ function addfeatures(){ //send feature details in product.php?action=add by subm
 				
 		}
 		if( $res2>0){
-				$resp ='+94775059818';
-				$msg ='Dear Customer,Experience Our new Product '.$pid.'If you are intrested,please contact us.';
-				$gatewayURL = 'http://localhost:9333/ozeki?'; 
-				$request = 'login=admin'; 
-				$request .= '&password=abc123'; 
-				$request .= '&action=sendMessage'; 
-				$request .= '&messageType=SMS:TEXT'; 
-				$request .= '&recepient='.urlencode($resp); 
-				$request .= '&messageData='.urlencode($msg);
-				$url = $gatewayURL . $request; 
-				//Open the URL to send the message 
-				file($url);
+				// $resp ='+94775059818';
+				// $msg ='Dear Customer,Experience Our new Product '.$pid.'If you are intrested,please contact us.';
+				// $gatewayURL = 'http://localhost:9333/ozeki?'; 
+				// $request = 'login=admin'; 
+				// $request .= '&password=abc123'; 
+				// $request .= '&action=sendMessage'; 
+				// $request .= '&messageType=SMS:TEXT'; 
+				// $request .= '&recepient='.urlencode($resp); 
+				// $request .= '&messageData='.urlencode($msg);
+				// $url = $gatewayURL . $request; 
+				// //Open the URL to send the message 
+				// file($url);
 				$smsg="success";
 				if($smsg=='success'){
 				echo "1|Record has been Successfully Saved";

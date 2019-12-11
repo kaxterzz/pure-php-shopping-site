@@ -14,21 +14,21 @@ $date=$_POST['dailysales'];//datepicker name
         	<table class="table table-condensed">
             	<tr>
                 	<th rowspan="4"  class="col-md-1">
-               		 	<img class="img-responsive" src="../images/logo.png" width="75%"/>
+               		 	<img class="img-responsive" src="../images/logo1.png" width="75%"/>
                     </th>    
                     
                 </tr>
                 <tr>
                 	
-                	<td class="col-md-10" style="padding-bottom:0px;border-top:0px"><h1 style="margin:0px;color:#2E8AE6;font-family:Georgia, 'Times New Roman', Times, serif;">BINNY TRADERS</h1></td>
+                	<td class="col-md-10" style="padding-bottom:0px;border-top:0px"><h1 style="margin:0px;color:#2E8AE6;font-family:Georgia, 'Times New Roman', Times, serif;">AMAYA FASHION</h1></td>
                 </tr>
                 <tr>
                 	
-                	<td style="border-top:0px;padding:0px 0px 0px;font-size:16px">No.44, Ambagamuwa road, Gampola</td>	 
+                	<td style="border-top:0px;padding:0px 0px 0px;font-size:16px">No.720, Rajamaha Vihara Mw, Kelaniya</td>	 
                 </tr>
                 <tr>
                 	
-                	<td style="border-top:0px;padding:0px 0px 0px;font-size:16px">Tel.No: +94 81 2352302</td>
+                	<td style="border-top:0px;padding:0px 0px 0px;font-size:16px">Tel.No: +94 773 518787</td>
                 </tr>
             </table>
             <hr>

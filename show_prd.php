@@ -1,7 +1,7 @@
 <?php 
 session_start(); 
 $session_id=session_id();
-$meta_title='Binny Traders';
+$meta_title='Amaya Fashion';
 $c_page = '';
 ?>
 <?php include('inc_head.php');?>

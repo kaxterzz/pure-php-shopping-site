@@ -25,17 +25,21 @@ else if($c_page=='login'){
     	<div class="navbar-header">
             	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navi">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar">sasas</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-               <a href="<?php echo $base_url?>index.php"><img src="admin/images/logo.jpg" class="img-responsive" alt="business logo" /></a><!-- logo -->
+               <a href="<?php echo $base_url?>index.php"><img src="admin/images/small_logo.png" class="img-responsive" alt="business logo" /></a><!-- logo -->
+              
             </div><!-- end navbar-header-->
             <!-- collection of navigations -->
        <div class="collapse navbar-collapse" id="navi">     
         <div class="col-md-8-offset-4">
         	<div class="shop-menu pull-right">
+
             	<ul class="nav navbar-nav">
+            	<li class="<?php echo($wishlist) ?>"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+
                 	<?php 
 						if(!isset($_SESSION['customer'])|| !isset($_SESSION['customer']['cid'])){
 								echo'<li class="'.($myaccount).'"><a href="myaccount.php"><span class="glyphicon glyphicon-user"></span> Account</a></li>';	
@@ -44,7 +48,7 @@ else if($c_page=='login'){
 							 	echo'<li class="'.($myaccount).'"><a href="myaccount.php"><span class="glyphicon glyphicon-user"></span> ';
 								$cid=$_SESSION['customer']['cid'];
 								$sql="SELECT cus_fname FROM tbl_customer WHERE cus_id='$cid';";
-								$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Eroor:".mysqli_error($GLOBALS['conn']));
+								$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 								$row=mysqli_fetch_assoc($res);
 								echo ''.$row['cus_fname'].'</a></li>';  
 						   }

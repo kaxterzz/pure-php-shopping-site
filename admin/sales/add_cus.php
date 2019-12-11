@@ -17,6 +17,7 @@ $cusid='';
 $fname='';
 $lname='';
 $gen='';
+$stat='';
 $add='';
 $tel='';
 $email='';
@@ -31,6 +32,7 @@ if(isset($_GET['action'])){
 			$fname=trim($_POST['txtfname']);
 			$lname=trim($_POST['txtlname']);
 			$gen=$_POST['optgen'];
+			$stat=$_POST['optstat'];
 			$add=$_POST['txtadd'];
 			$tel=$_POST['txttel'];
 			$email=$_POST['txtemail'];
@@ -56,7 +58,7 @@ if(isset($_GET['action'])){
 				$frm_err_msg='Please enter your valid email ';
 			}		
 			else{
-				$sql_insert="INSERT INTO tbl_customer(cus_id,cus_fname,cus_lname,cus_gen,cus_add,cus_tel,cus_email) VALUES('$cusid','$fname','$lname','$gen','$add','$tel','$email');";
+				$sql_insert="INSERT INTO tbl_customer(cus_id,cus_fname,cus_lname,cus_gen,cus_add,cus_tel,cus_email,cus_stat) VALUES('$cusid','$fname','$lname','$gen','$add','$tel','$email','$stat');";
 				mysqli_query($GLOBALS['conn'],$sql_insert) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 				header('Location:'.$base_url.'sales/add_cus.php?action=add&id='.$cusid.'&s=1');
 				mysqli_close($con);
@@ -82,6 +84,7 @@ if(isset($_GET['action'])){
 				$fname=trim($_POST['txtfname']);
 				$lname=trim($_POST['txtlname']);
 				$gen=$_POST['optgen'];
+				$stat=$_POST['optstat'];
 				$add=$_POST['txtadd'];
 				$tel=$_POST['txttel'];
 				$email=$_POST['txtemail'];
@@ -108,7 +111,7 @@ if(isset($_GET['action'])){
 			}		
 				else{
 					$sql_update="UPDATE tbl_customer SET  
-				cus_fname='$fname',cus_lname='$lname',cus_gen='$gen',cus_add='$add',cus_tel='$tel',cus_email='$email' WHERE cus_id='$cusid';";
+				cus_fname='$fname',cus_lname='$lname',cus_gen='$gen',cus_add='$add',cus_tel='$tel',cus_email='$email',cus_stat='$stat' WHERE cus_id='$cusid';";
 					mysqli_query($GLOBALS['conn'],$sql_update) or die("Mysql error".mysqli_error($GLOBALS['conn']));
 					header('Location:'.$base_url.'sales/view_cus.php?&id='.$cusid.'&s=1');
 					}	// else close
@@ -186,6 +189,15 @@ else{
                             <tr>
                             	<td><label for="txtemail">Email</label></td>
                                 <td><input class="form-control" id="txtemail" name="txtemail" type="email" value="<?php echo $email?>"/></td>
+                            </tr>
+							<tr>
+                            	<td><label for="optstat">Status</label></td>
+								<td>
+                                <input class="radio-inline" id="optstat" name="optstat" type="radio" value="1"<?php if($stat=='1'):?>
+								 checked='checked' <?php endif?> checked/>Active
+                                <input class="radio-inline" id="optstat" name="optstat" type="radio" value="0"<?php if($stat=='0'):?>
+								 checked='checked'<?php endif?>/>Deactive
+                                </td>
                             </tr>
                         </table>
                         </div><!-- end frmdiv -->

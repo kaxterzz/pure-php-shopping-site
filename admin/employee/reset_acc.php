@@ -51,7 +51,7 @@ if(isset($_POST['btnsubmit']) && ($_POST['btnsubmit'] == "Submit")){
 	else{
 		$sql="UPDATE tbl_emp SET emp_pass='$epass' WHERE emp_id='$eid';";
 		mysqli_query($GLOBALS['conn'],$sql) or die("Mysql error".mysqli_error($GLOBALS['conn']));
-		$from ="clothshop@gmail.com";
+		$from ="amayafashion72@gmail.com";
 		$header = "From : ".$from;
 		$header .= "MIME-Version: 1.0\n";
 		$header .= "Content-type: text/html; charset=iso-8859-1\n";

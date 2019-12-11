@@ -30,31 +30,31 @@ $uprice='';
 $sql="SELECT prd_id,prd_name FROM tbl_products WHERE prd_tot_qnty<=prd_reorder_lvl;";
 	$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 	$nor=mysqli_num_rows($res);
-	if($nor!=0){
-		$arr=array();
-		while($row=mysqli_fetch_assoc($res)){
-			array_push($arr,$row['prd_id'].' '.$row['prd_name']);
-		}
-		$i=0;
-		$msg ='Dear Sir/Madam, Products ';
-		for($i=0;$i<$nor;$i++){
-					$msg.=' '.$arr[$i];		
-		};
-		$msg.=' have reached the re-order level on stock.Please Purchase the above products';
-		$from ="binnytraders@gmail.com";
-		$header = "From : ".$from;
-		$header .= "MIME-Version: 1.0\n";
-		$header .= "Content-type: text/html; charset=iso-8859-1\n";
-		$to ='kasunsmbox@hotmail.com';
-		$subject ='Products';
-		$message = $msg; 
-		// send mail
-		if(mail($to,$subject,$message,$from,$header))
-		$smsg="success";
-		if($smsg=='success'){
-			//echo "1";
-		}
-	}
+	// if($nor!=0){
+	// 	$arr=array();
+	// 	while($row=mysqli_fetch_assoc($res)){
+	// 		array_push($arr,$row['prd_id'].' '.$row['prd_name']);
+	// 	}
+	// 	$i=0;
+	// 	$msg ='Dear Sir/Madam, Products ';
+	// 	for($i=0;$i<$nor;$i++){
+	// 				$msg.=' '.$arr[$i];		
+	// 	};
+	// 	$msg.=' have reached the re-order level on stock.Please Purchase the above products';
+	// 	$from ="amayafashion72@gmail.com";
+	// 	$header = "From : ".$from;
+	// 	$header .= "MIME-Version: 1.0\n";
+	// 	$header .= "Content-type: text/html; charset=iso-8859-1\n";
+	// 	$to ='kasunsmbox@hotmail.com';
+	// 	$subject ='Products';
+	// 	$message = $msg; 
+	// 	// send mail
+	// 	if(mail($to,$subject,$message,$from,$header))
+	// 	$smsg="success";
+	// 	if($smsg=='success'){
+	// 		//echo "1";
+	// 	}
+	// }
 
 ?>
 <!-- attach inc-header.php -->
@@ -258,7 +258,7 @@ var j=1;
 				$('#txtqnty').focus();
 				}
 				else{
-					$("#form_msg").css("display","none");
+					//$("#form_msg").css("display","none");
 					var mytable = document.getElementById("inv-tbl");
 					var row_count = mytable.rows.length;
 					var new_row = mytable.insertRow(row_count);
@@ -271,7 +271,7 @@ var j=1;
 					new_row.insertCell(4).innerHTML = tot.toFixed(2);
 					new_row.insertCell(5).innerHTML = "<span class='glyphicon glyphicon-remove' id='remove' onclick='removerow(this);'></span>";
 					var gtot = parseFloat(document.getElementById("txtgtot").value);
-					document.getElementById("txtgtot").value = (gtot+tot).toFixed(2);
+					document.getElementById("txtgtot").value = (tot).toFixed(2);
 					//var ntot = parseFloat(document.getElementById("txtntot").value);
 					var disc = parseFloat(document.getElementById("txtdisc").value);
 			/*edit*/document.getElementById("txtntot").value =((gtot+tot)-((gtot+tot)*disc/100)).toFixed(2); 

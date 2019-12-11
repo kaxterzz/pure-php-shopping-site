@@ -2,7 +2,7 @@
 session_start();
 include('lib/config.php'); // attach config.php
 include('lib/function.php');
-$meta_title='Login.Binny Traders';
+$meta_title='Login - Amaya Fashion';
 include('inc-head.php');
 
 ?>
@@ -13,7 +13,7 @@ include('inc-head.php');
     <div class="row">
         <div class="col-md-12 col-sm-12">
         	<div class="panel panel-default">
-            	<div class="panel-heading"><img src="<?php echo($base_url) ?>images/bannar_login_transperant.png" alt="Binny Traders Bannar" width="90%" class="img-responsive"/></div><!-- end panel-header -->
+            	<div class="panel-heading"><img src="<?php echo($base_url) ?>images/bannar_login_transperant2.png" alt="Amaya Fashion Bannar" width="90%" class="img-responsive"/></div><!-- end panel-header -->
                 <div class="panel-body">
                 	<div id="msglogin"></div><!-- err msg -->
                 	<div class="form-horizontal" role="form" id="frmlogin">
@@ -40,7 +40,7 @@ include('inc-head.php');
                 </div><!-- end panel body -->
                 <div class="panel-footer">
                 
-                <div style="color:#068"><center><small>Copyright &copy; 2019 Cloth Shop All rights reserved</small></center></div>
+                <div style="color:#068"><center><small>Copyright &copy; 2019 Amaya Fashion All rights reserved</small></center></div>
                 </div><!-- end panel footer -->
             </div><!-- end panel -->
         </div><!--login form -->

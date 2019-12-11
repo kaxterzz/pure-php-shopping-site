@@ -590,7 +590,7 @@ function addinv_cus(){//add invoice by registered customer
 						$sql3="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty' WHERE prd_id='$pid';";
 						$res3=mysqli_query($GLOBALS['conn'],$sql3) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 						if($res3>0){
-							  $from ="clothshop@gmail.com";
+							  $from ="amayafashion72@gmail.com";
 							  $header = "From : ".$from;
 							  $header .= "MIME-Version: 1.0\n";
 							  $header .= "Content-type: text/html; charset=iso-8859-1\n";
@@ -731,7 +731,7 @@ session_start();
 						$sql3="UPDATE tbl_products SET prd_tot_qnty=prd_tot_qnty-'$qnty' WHERE prd_id='$pid';";
 						$res3=mysqli_query($GLOBALS['conn'],$sql3) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 						if($res3>0){
-							  $from ="clothshop@gmail.com";
+							  $from ="amayafashion72@gmail.com";
 							  $header = "From : ".$from;
 							  $header .= "MIME-Version: 1.0\n";
 							  $header .= "Content-type: text/html; charset=iso-8859-1\n";
