@@ -146,31 +146,31 @@ $('#btncussubmit').click(function(){
 	$.post('../lib/sales_func.php?type=addcusdetails',{cusid:cusid,fname:fname,lname:lname,gen:gen,add:add},function(data,status){
 		if(status=='success'){
 			var dataArr = data.split("|");
-					if(dataArr[0]=="1"){
+					if(dataArr[0]==1){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="alert alert-success">'+dataArr[1]+'</p>');
 						var inputbox = document.getElementById("txtcus");// get the id of input box
 						inputbox.value = cusid;// add the cusid on attribute 'value' of inputbox
 						setTimeout(function(){ $(".close").click() },3000);	// close the popup after 3000 miliseconds
 					}
-					else if(dataArr[0]=="2"){
+					else if(dataArr[0]==2){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
 						$('#txtfname').val("");
 						$('#txtfname').focus();
 					}
-					else if(dataArr[0]=="3"){
+					else if(dataArr[0]==3){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
 						$('#txtlname').val("");
 						$('#txtlname').focus();
 					}
-					else if(dataArr[0]=="4"){
+					else if(dataArr[0]==4){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="alert alert-danger">'+dataArr[1]+'</p>');
 						$('#txtadd').focus(); 
 					}
-					else if(dataArr[0]=="5"){
+					else if(dataArr[0]==5){
 						$("#form_msg").css("display","block");
 						$("#form_msg").html('<p class="alert alert-danger">'+dataArr[1]+'</p>'); 
 					}
