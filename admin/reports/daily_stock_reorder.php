@@ -4,7 +4,8 @@ include('../lib/connection.php'); // attach db connection
 $meta_title = "Daily Stock Reorder Level Report";
 session_start();
 include('../inc-head.php');//attach inc-head.php
-$date=$_POST['dailyrestock'];
+$fromDate=$_POST['dailyrestock_from'];
+$toDate=$_POST['dailyrestock_to'];
 ?>
 </head>
 
@@ -35,7 +36,7 @@ $date=$_POST['dailyrestock'];
         </div><!-- upper-bannar-->
         <div class="container">
         	<div id="topic">
-            	<h4><?php echo $date ?> Daily Stock Reorder Level Report</h4>
+				<h4>From&nbsp;<?php echo $fromDate ?>&nbsp;To&nbsp;<?php echo $toDate ?>&nbsp;Daily Stock Reorder Level Report</h4>
             </div>
         	<table class="table table-bordered tblreports"  style="border-color:#000">
             	<thead>

@@ -43,8 +43,18 @@ $page_action='';
                                       <option value="dailyStockReorderLvl">Daily Stock Reoreder Level</option>
                              </select>         
                         </td>
-                        <td class="col-md-2" style="text-align:right"><label for="myForm">Select Date:</label></td>
-                        <td id="calandar" class="col-md-3"><form class="frm form-horizontal" action="" name="myForm" id="myForm" method="post" target="_blank"><input id="myDatepicker" name="myDatepicker" class="datepicker" value=""></td>
+                       
+                        <td id="calandar" class="col-md-6">
+							<form class="frm form-inline" action="" name="myForm" id="myForm" method="post" target="_blank">
+							<div class="form-group">
+								<label for="exampleInputName2">From</label>
+								<input id="fromDate" name="fromDate" class="datepicker" value="">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail2">To</label>
+								<input id="toDate" name="toDate" class="datepicker" value="">
+							</div>
+						</td>
                         <td id="genbtn" class="col-md-4"><button type="submit" class="btn btn-warning" id="myButton">Generate</button></form></td>
                     </tr>
                 </table>   	
@@ -60,8 +70,10 @@ $(document).ready(function(e) {
 		var reptype=$('#cmbreporttype').val();
 		if(reptype=='dailySales'){
 			$('#myForm').attr('action','dailysales.php');
-			$('#myDatepicker').attr('class','datepicker');
-			$('#myDatepicker').attr('name','dailysales');
+			$('#fromDate').attr('class','datepicker');
+			$('#fromDate').attr('name','dailysales_from');
+			$('#toDate').attr('class','datepicker');
+			$('#toDate').attr('name','dailysales_to');
 			$( ".datepicker" ).datepicker({
 				//showOn: "button",
 				//buttonImage: "../images/calendarIcon.gif",
@@ -72,8 +84,10 @@ $(document).ready(function(e) {
 		}
 		else if(reptype=='dailyOnlineSales'){
 			$('#myForm').attr('action','dailyonlinesales.php');
-			$('#myDatepicker').attr('class','datepicker');
-			$('#myDatepicker').attr('name','dailyonlinesales');
+			$('#fromDate').attr('class','datepicker');
+			$('#fromDate').attr('name','dailyonlinesales_from');
+			$('#toDate').attr('class','datepicker');
+			$('#toDate').attr('name','dailyonlinesales_to');
 			$( ".datepicker" ).datepicker({
 				//showOn: "button",
 				//buttonImage: "../images/calendarIcon.gif",
@@ -84,8 +98,10 @@ $(document).ready(function(e) {
 		}
 		else if(reptype=='monthlySales'){
 			$('#myForm').attr('action','monthlysales.php');
-			$('#myDatepicker').attr('class','monthpicker');
-			$('#myDatepicker').attr('name','monthlylysales');
+			$('#fromDate').attr('class','monthpicker');
+			$('#fromDate').attr('name','monthlylysales_from');
+			$('#toDate').attr('class','monthpicker');
+			$('#toDate').attr('name','monthlylysales_to');
 			$('.monthpicker').datepicker( {
 				//showOn: "button",
 				//buttonImage: "../images/calendarIcon.gif",
@@ -105,8 +121,10 @@ $(document).ready(function(e) {
 		}
 		else if(reptype=='yearlySales'){
 			$('#myForm').attr('action','yearlysales.php');
-			$('#myDatepicker').attr('class','yearpicker');
-			$('#myDatepicker').attr('name','yearlylysales');
+			$('#fromDate').attr('class','yearpicker');
+			$('#fromDate').attr('name','yearlylysales_from');
+			$('#toDate').attr('class','yearpicker');
+			$('#toDate').attr('name','yearlylysales_to');
 			$('.yearpicker').datepicker( {
 				//showOn: "button",
 				//buttonImage: "../images/calendarIcon.gif",
@@ -124,8 +142,10 @@ $(document).ready(function(e) {
 		}
 		else if(reptype=='dailyStock'){
 			$('#myForm').attr('action','dailystock.php');
-			$('#myDatepicker').attr('class','datepicker');
-			$('#myDatepicker').attr('name','dailystock');
+			$('#fromDate').attr('class','datepicker');
+			$('#fromDate').attr('name','dailystock_from');
+			$('#toDate').attr('class','datepicker');
+			$('#toDate').attr('name','dailystock_to');
 			$( ".datepicker" ).datepicker({
 				//showOn: "button",
 				//buttonImage: "../images/calendarIcon.gif",
@@ -136,8 +156,10 @@ $(document).ready(function(e) {
 		}
 		else if(reptype=='dailyStockReorderLvl'){
 			$('#myForm').attr('action','daily_stock_reorder.php');
-			$('#myDatepicker').attr('class','datepicker');
-			$('#myDatepicker').attr('name','dailyrestock');
+			$('#fromDate').attr('class','datepicker');
+			$('#fromDate').attr('name','dailyrestock_from');
+			$('#toDate').attr('class','datepicker');
+			$('#toDate').attr('name','dailyrestock_to');
 			$( ".datepicker" ).datepicker({
 				//showOn: "button",
 				//buttonImage: "../images/calendarIcon.gif",

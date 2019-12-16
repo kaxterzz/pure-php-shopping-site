@@ -4,7 +4,8 @@ include('../lib/connection.php'); // attach db connection
 $meta_title = "Daily Online Sales Report";
 session_start();
 include('../inc-head.php');//attach inc-head.php
-$date=$_POST['dailyonlinesales'];
+$fromDate=$_POST['dailyonlinesales_from'];
+$toDate=$_POST['dailyonlinesales_to'];
 ?>
 </head>
 
@@ -35,7 +36,7 @@ $date=$_POST['dailyonlinesales'];
         </div><!-- upper-bannar-->
         <div class="container">
         	<div id="topic">
-            	<h4><?php echo $date ?> Online Sales Report</h4>
+            	<h4>From&nbsp;<?php echo $fromDate ?>&nbsp;To&nbsp;<?php echo $toDate ?>Online Sales Report</h4>
             </div>
         	<table class="table table-bordered tblreports"  style="border-color:#000">
             	<thead>
@@ -48,7 +49,7 @@ $date=$_POST['dailyonlinesales'];
                 </thead>
                 <tbody id="daily_online_sales_details">
                 <?php 
-					$sql="SELECT I.prd_id,P.prd_name,SUM(inv_prd_qnty),SUM(inv_prd_tot) FROM tbl_products P,tbl_inv_info I WHERE I.prd_id=P.prd_id AND I.inv_date='$date' AND I.inv_online=1 GROUP BY prd_id;";
+					$sql="SELECT I.prd_id,P.prd_name,SUM(inv_prd_qnty),SUM(inv_prd_tot) FROM tbl_products P,tbl_inv_info I WHERE I.prd_id=P.prd_id AND I.inv_date BETWEEN '$fromDate' AND '$toDate' AND I.inv_online=1 GROUP BY prd_id;";
 					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$tot=0;

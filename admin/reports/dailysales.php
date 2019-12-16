@@ -4,7 +4,8 @@ include('../lib/connection.php'); // attach db connection
 $meta_title = "Daily Sales Report";
 session_start();
 include('../inc-head.php');//attach inc-head.php
-$date=$_POST['dailysales'];//datepicker name
+$fromDate=$_POST['dailysales_from'];//datepicker name
+$toDate=$_POST['dailysales_to'];//datepicker name
 ?>
 </head>
 
@@ -35,7 +36,7 @@ $date=$_POST['dailysales'];//datepicker name
         </div><!-- upper-bannar-->
         <div class="container">
         	<div id="topic">
-            	<h4>Sales Report <?php echo $date ?></h4>
+            	<h4>Sales Report From&nbsp;<?php echo $fromDate ?>&nbsp;&nbsp;To&nbsp;<?php echo $toDate ?></h4>
             </div>
         	<table class="table table-bordered tblreports"  style="border-color:#000">
             	<thead>
@@ -48,7 +49,7 @@ $date=$_POST['dailysales'];//datepicker name
                 </thead>
                 <tbody id="daily_sales_details">
                 <?php 
-					$sql="SELECT I.prd_id,P.prd_name,SUM(inv_prd_qnty),SUM(inv_prd_tot) FROM tbl_products P,tbl_inv_info I WHERE I.prd_id=P.prd_id AND I.inv_date='$date' GROUP BY prd_id;";
+					$sql="SELECT I.prd_id,P.prd_name,SUM(inv_prd_qnty),SUM(inv_prd_tot) FROM tbl_products P,tbl_inv_info I WHERE I.prd_id=P.prd_id AND I.inv_date BETWEEN '$fromDate' AND '$toDate' GROUP BY prd_id;";
 					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$tot=0;

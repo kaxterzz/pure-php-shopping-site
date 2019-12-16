@@ -4,7 +4,8 @@ include('../lib/connection.php'); // attach db connection
 $meta_title = "Yearly Sales Report";
 session_start();
 include('../inc-head.php');//attach inc-head.php
-$date=$_POST['yearlylysales'];
+$fromDate=$_POST['yearlylysales_from'];
+$toDate=$_POST['yearlylysales_to'];
 ?>
 </head>
 
@@ -35,7 +36,7 @@ $date=$_POST['yearlylysales'];
         </div><!-- upper-bannar-->
         <div class="container">
         	<div id="topic">
-            	<h4>Sales Report <?php echo $date ?></h4>
+            	<h4>Sales Report From&nbsp;<?php echo $fromDate ?>&nbsp;To&nbsp;<?php echo $toDate ?></h4>
             </div>
         	<table class="table table-bordered tblreports"  style="border-color:#000">
             	<thead>
@@ -47,7 +48,7 @@ $date=$_POST['yearlylysales'];
                 </thead>
                 <tbody id="yearly_sales_details">
                 <?php 
-					$sql="SELECT MONTH(inv_date),SUM(inv_ntot) FROM tbl_invoice WHERE YEAR(inv_date)='$date'
+					$sql="SELECT MONTH(inv_date),SUM(inv_ntot) FROM tbl_invoice WHERE YEAR(inv_date) BETWEEN '$fromDate' AND '$toDate'
 GROUP BY MONTH(inv_date);";
 					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);

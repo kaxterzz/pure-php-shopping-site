@@ -4,49 +4,94 @@ include('../lib/connection.php'); // attach db connection
 $meta_title = "Monthly Sales Report";
 session_start();
 include('../inc-head.php');//attach inc-head.php
-$date=$_POST['monthlylysales'];
-$month=date('m',strtotime($date));// extract month
-$year=date('Y',strtotime($date)); //extract year
-$newmonth=''; //month to display on title
-	switch($month){
+$fromDate=$_POST['monthlylysales_from'];
+$toDate=$_POST['monthlylysales_to'];
+$frommonth=date('m',strtotime($fromDate));// extract month
+$fromyear=date('Y',strtotime($fromDate)); //extract year
+$tomonth=date('m',strtotime($toDate));// extract month
+$toyear=date('Y',strtotime($toDate)); //extract year
+$fromnewmonth=''; //month to display on title
+$tonewmonth=''; //month to display on title
+	switch($frommonth){
 		case 1:
-		  $newmonth= "January";
+		  $fromnewmonth= "January";
 		  break;
 		case 2:
-		  $newmonth= "February";
+		  $fromnewmonth= "February";
 		  break;
 		case 3:
-		  $newmonth= "March";
+		  $fromnewmonth= "March";
 		  break;
 		case 4:
-		  $newmonth= "April";
+		  $fromnewmonth= "April";
 		  break;
 		case 5:
-		  $newmonth= "May";
+		  $fromnewmonth= "May";
 		  break;
 		case 6:
-		  $newmonth= "June";
+		  $fromnewmonth= "June";
 		  break;
 		case 7:
-		  $newmonth= "July";
+		  $fromnewmonth= "July";
 		  break;
 		case 8:
-		  $newmonth= "August";
+		  $fromnewmonth= "August";
 		  break;
 		case 9:
-		  $newmonth= "September";
+		  $fromnewmonth= "September";
 		  break;
 		case 10:
-		  $newmonth= "October";
+		  $fromnewmonth= "October";
 		  break;
 		case 11:
-		  $newmonth= "November";
+		  $fromnewmonth= "November";
 		  break;
 		case 12:
-		  $newmonth= "December";
+		  $fromnewmonth= "December";
 		  break;
 		default:
-		  $newmonth='Incorrect month selection';
+		  $fromnewmonth='Incorrect month selection';
+	  } 
+
+	  switch($tomonth){
+		case 1:
+		  $tonewmonth= "January";
+		  break;
+		case 2:
+		  $tonewmonth= "February";
+		  break;
+		case 3:
+		  $tonewmonth= "March";
+		  break;
+		case 4:
+		  $tonewmonth= "April";
+		  break;
+		case 5:
+		  $tonewmonth= "May";
+		  break;
+		case 6:
+		  $tonewmonth= "June";
+		  break;
+		case 7:
+		  $tonewmonth= "July";
+		  break;
+		case 8:
+		  $tonewmonth= "August";
+		  break;
+		case 9:
+		  $tonewmonth= "September";
+		  break;
+		case 10:
+		  $tonewmonth= "October";
+		  break;
+		case 11:
+		  $tonewmonth= "November";
+		  break;
+		case 12:
+		  $tonewmonth= "December";
+		  break;
+		default:
+		  $tonewmonth='Incorrect month selection';
 	  } 
 
 ?>
@@ -79,7 +124,7 @@ $newmonth=''; //month to display on title
         </div><!-- upper-bannar-->
         <div class="container">
         	<div id="topic">
-            	<h4><?php echo $newmonth?>&nbsp;<?php echo $year ?>&nbsp;Sales Report</h4>
+            	<h4>From&nbsp;<?php echo $fromnewmonth?>&nbsp;<?php echo $fromyear ?>&nbsp;To<?php echo $tonewmonth?>&nbsp;<?php echo $toyear ?>&nbsp;Sales Report</h4>
             </div>
         	<table class="table table-bordered tblreports"  style="border-color:#000">
             	<thead>
@@ -91,7 +136,7 @@ $newmonth=''; //month to display on title
                 </thead>
                 <tbody id="monthly_sales_details">
                 <?php 
-					$sql="SELECT DATE(inv_date),inv_ntot,SUM(inv_ntot) FROM tbl_invoice WHERE MONTH(inv_date)='$month' AND YEAR(inv_date)='$year' GROUP BY inv_date;";
+					$sql="SELECT DATE(inv_date),inv_ntot,SUM(inv_ntot) FROM tbl_invoice WHERE MONTH(inv_date) BETWEEN '$frommonth' AND '$tomonth' AND YEAR(inv_date) BETWEEN '$fromyear' AND '$toyear' GROUP BY inv_date;";
 					$res=mysqli_query($GLOBALS['conn'],$sql) or die("SQL Error:".mysqli_error($GLOBALS['conn']));
 					$nor=mysqli_num_rows($res);
 					$i=1;
