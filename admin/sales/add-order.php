@@ -161,7 +161,7 @@ $sql="SELECT prd_id,prd_name FROM tbl_products WHERE prd_tot_qnty<=prd_reorder_l
             </script>
             </td>
             <td><label for="txtqnty">Quantity<em style="color:#F00">*</em></label></td>
-            <td><input class="form-control has-feedback" id="txtqnty" name="txtqnty" type="text" value="<?php echo $qnty?>"/></td>
+            <td><input class="form-control has-feedback" id="txtqnty" name="txtqnty" type="text" value="<?php if($qnty != ""){echo $qnty;}?>"/></td>
              <td><input class="form-control btn btn-primary" type="button"  name="btnadd" id="btnadd" value="Add"/></td> 
           </tr>
         </table>
@@ -236,6 +236,10 @@ $('#txtqnty').keyup(function(){//get stock lvl when qnty of prd entered
 		if(status=='success'){
 			//alert(data);
 			document.getElementById("txtstocklvl").value=data;
+			console.log('llll');
+			
+			console.log(data);
+			
 		}
 	});
 });          
@@ -251,8 +255,10 @@ var j=1;
 	$("#btnadd").click(function(){
 		if($('#cmbprd').val() !='' && $('#txtuprice').val() !=''){
 			$("#form_msg").css("display","none");
+			var txtqnty = parseInt($('#txtqnty').val(), 10)
+			var txtstocklvl = parseInt($('#txtstocklvl').val(),10)
 			if($('#txtqnty').val() !=''){
-				if($('#txtqnty').val()>$('#txtstocklvl').val()){
+				if(txtqnty > txtstocklvl){
 				$("#form_msg").css("display","block");
 				$("#form_msg").html("<p class='alert alert-danger'>The quantity entered is above the stock level.Please enter quantity below "+$('#txtstocklvl').val()+"</p>");
 				$('#txtqnty').val("");

@@ -122,13 +122,14 @@ if(isset($_GET['action'])){
 					$from ="amayafashion72@gmail.com";
 					$header = "From : ".$from;
 					$header .= "MIME-Version: 1.0\n";
-					$header .= "Content-type: text/html; charset=iso-8859-1\n";
+					$header .= "Content-Type: text/html; charset=UTF-8\r\n";
+					$header .= 'From: Amaya Fashions <amayafashion72@gmail.com>' . "\r\n";
 					$to =$uname;
 					$subject ='Account Reset';
 					$message ='Dear '.$fname.'<br/>Your Account password have been changed Successfully<br/><br/>Thank you';
 					$message = wordwrap($message, 70);	  
 					// send mail
-					if(mail($to,$subject,$message,$from,$header))
+					if(mail($to,$subject,$message,$header))
 						$esmsg="success email";
 
 						// $resp ='+94712000300';
