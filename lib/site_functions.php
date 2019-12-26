@@ -572,7 +572,7 @@ function addinv_cus(){//add invoice by registered customer
 		elseif($arrVC['result'] == false)	
 			echo '11|Credit card invalid. Please make sure that you entered a valid <em>'.$arrVC['card'].'</em> credit card ';
 		else{			
-		$sql="INSERT INTO tbl_invoice(inv_id,inv_date,inv_cus_id,inv_gtot,ship_cost,inv_ntot,inv_online) VALUES('$invid',Now(),'$cid','$gtot','$ship','$ntot',1);";
+		$sql="INSERT INTO tbl_invoice(inv_id,inv_date,inv_cus_id,inv_gtot,ship_cost,inv_ntot,inv_online,is_new) VALUES('$invid',Now(),'$cid','$gtot','$ship','$ntot',1,1);";
 		$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 		$res1='';
 		if($res>0){
@@ -713,7 +713,7 @@ session_start();
 		elseif($arrVC['result'] == false)	
 			echo '11|Credit card invalid. Please make sure that you entered a valid <em>'.$arrVC['card'].'</em> credit card ';
 		else{			
-		$sql="INSERT INTO tbl_invoice(inv_id,inv_date,inv_session_id,inv_gtot,ship_cost,inv_ntot,inv_online) VALUES('$invid',Now(),'$session_id','$gtot','$ship','$ntot',1);";
+		$sql="INSERT INTO tbl_invoice(inv_id,inv_date,inv_session_id,inv_gtot,ship_cost,inv_ntot,inv_online,is_new) VALUES('$invid',Now(),'$session_id','$gtot','$ship','$ntot',1,1);";
 		$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 		$res1='';
 		if($res>0){

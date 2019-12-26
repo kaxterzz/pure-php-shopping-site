@@ -134,7 +134,7 @@ $c_page = '';
 		<div class="prd col-md-10"><!-- Feature product view -->
         	<div class="col-md-offset-1" style="margin-bottom:30px;background-color:#FC0;padding:5px"><em><h2 style="color:#06C">Featured Products</h2></em></div>	
          	<?php
-				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000002' AND prd_tot_qnty>prd_reorder_lvl;";
+				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000008'";
 				$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				if(mysqli_num_rows($res)==0){
 					echo ("There are no Products to display");
@@ -173,7 +173,7 @@ $c_page = '';
     
     		<!-- Feature product view2 -->	
          	<?php
-				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000007' AND prd_tot_qnty>prd_reorder_lvl";
+				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000007'";
 				$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				if(mysqli_num_rows($res)==0){
 					echo ("There are no Products to display");
@@ -212,7 +212,7 @@ $c_page = '';
 
     		<!-- Feature product view3 -->	
          	<?php
-				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000005' AND prd_tot_qnty>prd_reorder_lvl";
+				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000005'";
 				$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				if(mysqli_num_rows($res)==0){
 					echo ("There are no Products to display");
@@ -251,7 +251,7 @@ $c_page = '';
 
 			    		<!-- Feature product view4 -->	
          	<?php
-				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000003' AND prd_tot_qnty>prd_reorder_lvl";
+				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000002'";
 				$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				if(mysqli_num_rows($res)==0){
 					echo ("There are no Products to display");
@@ -290,7 +290,7 @@ $c_page = '';
             
                 		<!-- Feature product view5 -->	
          	<?php
-				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000003' AND prd_tot_qnty>prd_reorder_lvl";
+				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000003'";
 				$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				if(mysqli_num_rows($res)==0){
 					echo ("There are no Products to display");
@@ -329,7 +329,7 @@ $c_page = '';
             
                 		<!-- Feature product view6 -->	
          	<?php
-				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000003' AND prd_tot_qnty>prd_reorder_lvl";
+				$sql="SELECT prd_id,prd_name,prd_img_path,prd_tot_qnty,prd_price FROM tbl_products WHERE prd_id='P0000004'";
 				$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 				if(mysqli_num_rows($res)==0){
 					echo ("There are no Products to display");

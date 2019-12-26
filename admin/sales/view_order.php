@@ -25,7 +25,8 @@ $frm_err_msg='';
 <div class="page-body container-fluid">
     	<div class="container inner">
         	<div class="page-title clearfix">
-                <h1 class="pull-left"><?php echo $page_title ?></h1>
+                <h1 class="pull-left"><?php echo $page_title ?></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
                 <?php if($page_action == '' && $_SESSION["employee"]["etype"]=="J0001"): ?>
                 <div class="page-top-action pull-right" style="display:none"><a class="btn btn-primary" href="<?php echo $base_url?>sales/add-order.php">Add New Order</a></div> 
                 <?php elseif($page_action == '' && ($_SESSION["employee"]["etype"]=="J0002" || $_SESSION["employee"]["etype"]=="J0003" )): ?> 
@@ -90,7 +91,7 @@ $frm_err_msg='';
             </div><!--end navi -->
          </nav>
          </div><!-- end navigation search-->
-
+		 <div id="order-status-msg"></div>
              <div class="form_msg">
 						<?php if($frm_err_msg != ''){
                             echo '<p class="alert alert-danger">'.$frm_err_msg.'</p>';
@@ -103,6 +104,7 @@ $frm_err_msg='';
                         }
                         ?>
                     </div>
+
                     <div class="frmdiv">
                     <table class="frm-tbl table table-responsive">
                         <thead>
@@ -113,10 +115,11 @@ $frm_err_msg='';
                             <th>Discount</th>
                             <th>Net Total</th>
                             <th>Employee ID</th>
+							<th>Accept/Reject</th>
                             <th></th>
                         </thead>
                         <tbody id="viewRec">
-                        <?php $sql_select="SELECT I.inv_id,C.cus_fname,C.cus_lname,I.inv_date,I.inv_gtot,I.inv_disc,I.inv_ntot,I.inv_emp_id FROM tbl_invoice I JOIN tbl_customer C ON I.inv_cus_id=C.cus_id;";
+                        <?php $sql_select="SELECT I.is_new,I.status,I.inv_id,C.cus_id,C.cus_email,C.cus_fname,C.cus_lname,I.inv_date,I.inv_gtot,I.inv_disc,I.inv_ntot,I.inv_emp_id FROM tbl_invoice I JOIN tbl_customer C ON I.inv_cus_id=C.cus_id ORDER BY I.inv_id DESC;";
 							  $result=mysqli_query($GLOBALS['conn'],$sql_select) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 							  while($row=mysqli_fetch_assoc($result)){
 								  
@@ -128,7 +131,20 @@ $frm_err_msg='';
                             <td><?php echo $tot=$row['inv_disc'];?></td>
                             <td><?php echo $tot=$row['inv_ntot'];?></td>
                             <td><?php echo $emp=$row['inv_emp_id'];?></td>
-                            
+							<td><?php 
+								if($row['is_new'] == 1){?>
+									<input type="hidden" value="<?php echo $row['inv_id']; ?>" id="inv_id">
+									<input type="hidden" value="<?php echo $row['cus_id']; ?>" id="cus_id">
+									<input type="hidden" value="<?php echo $row['cus_email']; ?>" id="cus_email">
+
+									<button type="button" class="btn btn-info btn-xs" id="accept-btn" onclick="acceptOrder()"><span class="glyphicon glyphicon-ok"></span></button>
+									<button type="button" class="btn btn-danger btn-xs" id="reject-btn" onclick="rejectOrder()"><span class="glyphicon glyphicon-remove"></span></button>
+								<?php } else if($row['status'] == 1) { ?>
+									<span class="label label-info">Accepted</span>
+								<?php } else if($row['status'] == 0) {?>
+									<span class="label label-danger">Rejected</span>
+								<?php } ?>	
+							</td>
                             <td>
                         <a class="btnLoadOrderPrdData" role="button" id="btnviewprdorder" name="btnviewprdorder" data-type="view" data-id="<?php echo $invid ?>" type="button" data-toggle="modal" data-target="#ModelWindow"><span class="glyphicon glyphicon-eye-open"></span> View Details</a>
                         	</td>
@@ -192,4 +208,55 @@ $(document).ready(function(){
 		  	
 		});
 });
+
+function acceptOrder(){
+		var inv_id = $('#inv_id').val();
+		var cus_id = $('#cus_id').val();
+		var cus_email = $('#cus_email').val();
+
+			$.post("../lib/inv_func.php?type=acceptOrder",{inv_id:inv_id,cus_id:cus_id,cus_email:cus_email},
+		  function(data){	
+			console.log(data);
+			
+			var arr = data.split("|");
+			if(arr[0]==1){
+				$("#order-status-msg").css("display","block");
+				$("#order-status-msg").html("<p class='alert alert-info'>"+arr[1]+"</p>");
+				setTimeout(function(){window.location.reload(true)},500);
+			
+			}
+			else if(arr[0]==0){
+				$("#order-status-msg").css("display","block");
+				$("#order-status-msg").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
+				setTimeout(function(){window.location.reload(true)},500);
+				
+			}
+				
+		  });
+		}
+
+		function rejectOrder(){
+			var inv_id = $('#inv_id').val();
+			var cus_id = $('#cus_id').val();
+			var cus_email = $('#cus_email').val();
+
+			$.post("../lib/inv_func.php?type=rejectOrder",{inv_id:inv_id,cus_id:cus_id,cus_email:cus_email},
+		  function(data){	
+			console.log(data);
+			
+			var arr = data.split("|");
+			if(arr[0]==1){
+				$("#order-status-msg").css("display","block");
+				$("#order-status-msg").html("<p class='alert alert-info'>"+arr[1]+"</p>");
+				setTimeout(function(){window.location.reload(true)},500);
+			}
+			else if(arr[0]==0){
+				$("#order-status-msg").css("display","block");
+				$("#order-status-msg").html("<p class='alert alert-danger'>"+arr[1]+"</p>");
+				setTimeout(function(){window.location.reload(true)},500);
+				
+			}
+				
+		  });
+		}
 </script>

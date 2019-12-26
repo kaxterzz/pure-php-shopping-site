@@ -52,7 +52,7 @@ function addInvoice(){
 	$disc=$_POST['disc'];
 	$ntot=$_POST['ntot'];
 	$darr=$_POST['darr'];	
-	$sql="INSERT INTO tbl_invoice(inv_id,inv_date,inv_cus_id,inv_emp_id,inv_gtot,inv_disc,inv_ntot) VALUES('$invid',Now(),'$cusid','$eid','$gtot','$disc','$ntot');";
+	$sql="INSERT INTO tbl_invoice(inv_id,inv_date,inv_cus_id,inv_emp_id,inv_gtot,inv_disc,inv_ntot,status) VALUES('$invid',Now(),'$cusid','$eid','$gtot','$disc','$ntot',1);";
 	$res=mysqli_query($GLOBALS['conn'],$sql) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
 	$res2='';
 		foreach($darr as $val){

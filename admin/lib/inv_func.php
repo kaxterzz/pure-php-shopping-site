@@ -50,7 +50,13 @@ if(isset($_GET['type'])){
 		break;	
 		case 'updatenewtfeatr':
 			updateNewFeatr();
-		break;		
+		break;	
+		case 'acceptOrder':
+			acceptOrder();
+		break;
+		case 'rejectOrder':
+			rejectOrder();
+		break;	
 		}
 	}
 	
@@ -426,4 +432,56 @@ foreach($nfarr as $arr1){
 				echo('2|Some Error Occured');	
 }
 }
+
+function acceptOrder(){
+	$inv_id=$_POST['inv_id'];	
+	$cus_id=$_POST['cus_id'];
+	$cus_email=$_POST['cus_email'];
+	
+	$sql1="UPDATE tbl_invoice SET is_new=0, status=1 WHERE inv_id='$inv_id'";
+	$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
+
+	if($res1>0){
+		$from ="amayafashion72@gmail.com";
+		$header = "From : ".$from;
+		$header .= "MIME-Version: 1.0\n";
+		$header .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$header .= 'From: Amaya Fashions <amayafashion72@gmail.com>' . "\r\n";
+		$to =$cus_email;
+		$subject ='Order Status';
+		$message ='Dear Customer,<br/>Your order with the invoice number '.$inv_id.' has been accepted and processed successfully ! You will receive it within few days.<br/><br/>Thank you !';
+		$message = wordwrap($message, 70);	  
+		// send mail
+		if(mail($to,$subject,$message,$header))
+			echo('1|Success');	
+	}else{
+		echo('0|Failed');
+	}
+}
+
+function rejectOrder(){
+	$inv_id=$_POST['inv_id'];	
+	$cus_id=$_POST['cus_id'];
+	$cus_email=$_POST['cus_email'];
+
+	$sql1="UPDATE tbl_invoice SET is_new=0, status=0 WHERE inv_id='$inv_id'";
+	$res1=mysqli_query($GLOBALS['conn'],$sql1) or die("MYSQL Error:".mysqli_error($GLOBALS['conn']));
+	if($res1>0){
+		$from ="amayafashion72@gmail.com";
+		$header = "From : ".$from;
+		$header .= "MIME-Version: 1.0\n";
+		$header .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$header .= 'From: Amaya Fashions <amayafashion72@gmail.com>' . "\r\n";
+		$to =$cus_email;
+		$subject ='Order Status';
+		$message ='Dear Customer,<br/>Your order with the invoice number '.$inv_id.' has been rejected ! Contact us for more info !<br/><br/>Thank you !';
+		$message = wordwrap($message, 70);	  
+		// send mail
+		if(mail($to,$subject,$message,$header))
+			echo('1|Success');	
+	}else{
+		echo('0|Failed');
+	}
+}
+
 ?>
